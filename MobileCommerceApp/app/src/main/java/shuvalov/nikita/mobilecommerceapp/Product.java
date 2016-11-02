@@ -5,15 +5,15 @@ package shuvalov.nikita.mobilecommerceapp;
  */
 
 public class Product {
-    String mName, mDescription;
-    int mImageRef;
-    float mPrice;
+    private String mName, mDescription;
+    private int mImageRef;
+    private double mPrice;
 
 
     //Idea: Add a weight to products, higher weight items cost more to ship.
 
 
-    public Product(String name, String description, int imageRef, float price) {
+    public Product(String name, String description, int imageRef, double price) {
         mName = name;
         mDescription = description;
         mImageRef = imageRef;
@@ -32,7 +32,7 @@ public class Product {
         return mImageRef;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return mPrice;
     }
 
