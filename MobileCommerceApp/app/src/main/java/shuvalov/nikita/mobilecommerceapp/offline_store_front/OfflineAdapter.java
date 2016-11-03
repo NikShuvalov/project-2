@@ -23,12 +23,10 @@ import shuvalov.nikita.mobilecommerceapp.R;
 public class OfflineAdapter extends RecyclerView.Adapter<OfflineViewHolder> {
 
     ArrayList<Product> mInventory;
-    int mDisplay_height;
     int mDisplay_width;
 
-    public OfflineAdapter(ArrayList<Product> inventory, int display_height, int display_width) {
+    public OfflineAdapter(ArrayList<Product> inventory,  int display_width) {
         mInventory = inventory;
-        mDisplay_height= display_height;
         mDisplay_width = display_width;
     }
 
@@ -40,17 +38,7 @@ public class OfflineAdapter extends RecyclerView.Adapter<OfflineViewHolder> {
 
     @Override
     public void onBindViewHolder(OfflineViewHolder holder, int position) {
-//        if (position%2==0){
-//            int right = (int) (mDisplay_width*0.95);
-//            int left =(int) (mDisplay_width*0.60);
-//            holder.mCardView.setRight(right);
-//            holder.mCardView.setLeft(left);
-//        }else{
-//            int right = (int) (mDisplay_width*0.40);
-//            int left =(int) (mDisplay_width*0.05);
-//            holder.mCardView.setRight(right);
-//            holder.mCardView.setLeft(left);
-//        }
+
         holder.mNameView.setText(mInventory.get(position).getName());
         holder.mPriceView.setText(String.valueOf(mInventory.get(position).getPrice()));
         holder.mDescView.setText(mInventory.get(position).getDescription());

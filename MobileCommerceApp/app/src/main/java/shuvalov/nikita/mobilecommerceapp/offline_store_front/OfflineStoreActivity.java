@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Display;
 
 import java.util.ArrayList;
@@ -25,18 +26,17 @@ public class OfflineStoreActivity extends AppCompatActivity {
         products = new ArrayList<>();
         debugProductList();
 
+        //This block of code figures out the size of the screen, particularly the width.
         Point size= new Point();
-
         Display display = getWindowManager().getDefaultDisplay();
         display.getSize(size);
-        int display_height = size.y;
         int display_width = size.x;
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.offline_store_recycler);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, display_width/720); //Using the displaywidth I determine how many columns will display
         mRecyclerView.setLayoutManager(gridLayoutManager);
-        mRecyclerView.setAdapter(new OfflineAdapter(products, display_height, display_width));
+        mRecyclerView.setAdapter(new OfflineAdapter(products, display_width));
 
     }
 
