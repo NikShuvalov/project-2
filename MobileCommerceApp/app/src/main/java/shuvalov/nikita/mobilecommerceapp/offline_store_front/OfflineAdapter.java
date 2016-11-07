@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -37,11 +38,17 @@ public class OfflineAdapter extends RecyclerView.Adapter<OfflineViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(OfflineViewHolder holder, int position) {
+    public void onBindViewHolder(final OfflineViewHolder holder, int position) {
 
         holder.mNameView.setText(mInventory.get(position).getName());
         holder.mPriceView.setText(String.valueOf(mInventory.get(position).getPrice()));
-        holder.mDescView.setText(mInventory.get(position).getDescription());
+        holder.mDescView.setText(mInventory.get(position).getDescription());//Possibly get rid of this to make the cardViews neater.
+        holder.mCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), mInventory.get(holder.getAdapterPosition()).getName()+" clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 

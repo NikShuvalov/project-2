@@ -1,4 +1,4 @@
-package shuvalov.nikita.mobilecommerceapp;
+package shuvalov.nikita.mobilecommerceapp.amazon_folder;
 
 import android.os.AsyncTask;
 

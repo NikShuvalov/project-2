@@ -32,9 +32,12 @@ public class OfflineStoreActivity extends AppCompatActivity {
         display.getSize(size);
         int display_width = size.x;
 
-
         mRecyclerView = (RecyclerView) findViewById(R.id.offline_store_recycler);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, display_width/720); //Using the displaywidth I determine how many columns will display
+
+        //Using the displaywidth I determine how many columns will display, my screensize is 1440
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, display_width/720);
+
+
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(new OfflineAdapter(products, display_width));
 
