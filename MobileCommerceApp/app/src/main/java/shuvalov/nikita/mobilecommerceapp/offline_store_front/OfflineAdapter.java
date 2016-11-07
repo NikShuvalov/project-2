@@ -1,5 +1,6 @@
 package shuvalov.nikita.mobilecommerceapp.offline_store_front;
 
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
@@ -46,7 +47,9 @@ public class OfflineAdapter extends RecyclerView.Adapter<OfflineViewHolder> {
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), mInventory.get(holder.getAdapterPosition()).getName()+" clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), OfflineDetailActivity.class);
+                intent.putExtra(MainActivity.ITEM_NAME_KEY,mInventory.get(holder.getAdapterPosition()).getName());
+                view.getContext().startActivity(intent);
             }
         });
 

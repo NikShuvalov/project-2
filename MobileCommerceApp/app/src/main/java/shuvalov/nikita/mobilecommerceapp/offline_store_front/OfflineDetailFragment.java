@@ -3,51 +3,39 @@ package shuvalov.nikita.mobilecommerceapp.offline_store_front;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import shuvalov.nikita.mobilecommerceapp.MainActivity;
+import shuvalov.nikita.mobilecommerceapp.Product;
 import shuvalov.nikita.mobilecommerceapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OfflineDetailFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link OfflineDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class OfflineDetailFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String mItemName;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentClickListener mListener;
 
     public OfflineDetailFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment OfflineDetailFragment.
-     */
     // TODO: Rename and change types and number of parameters
-    public static OfflineDetailFragment newInstance(String param1, String param2) {
+    public static OfflineDetailFragment newInstance(String itemName) {
         OfflineDetailFragment fragment = new OfflineDetailFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM1, itemName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,16 +44,31 @@ public class OfflineDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mItemName = getArguments().getString(ARG_PARAM1);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_offline_detail, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        Log.d("Rancor", "ON VIEW CREATED RAN");
+        super.onViewCreated(view, savedInstanceState);
+
+        TextView nameView = (TextView) view.findViewById(R.id.item_name);
+        TextView detailsView = (TextView)view.findViewById(R.id.item_details_text);
+        ImageView itemImage = (ImageView)view.findViewById(R.id.item_image);
+        TextView priceView = (TextView)view.findViewById(R.id.cost_text);
+
+        Product selectedProduct = OfflineSQLOpenHelper.getMyInstance(view.getContext()).getProductByName(mItemName);
+        nameView.setText(selectedProduct.getName());
+        detailsView.setText(selectedProduct.getDescription());
+        priceView.setText(String.valueOf(selectedProduct.getPrice()));
+        //ToDo: Have image reference set to itemImageView
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -78,11 +81,11 @@ public class OfflineDetailFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnFragmentClickListener) {
+            mListener = (OnFragmentClickListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnBuyClickListener");
         }
     }
 
@@ -92,18 +95,7 @@ public class OfflineDetailFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+    public interface OnFragmentClickListener {
         void onFragmentInteraction(Uri uri);
     }
 }

@@ -21,6 +21,7 @@ ToDo: Use strings.xml and colors.xml.
 ToDo:
 */
 public class MainActivity extends AppCompatActivity{
+    public static final String ITEM_NAME_KEY = "item_name_key";
 
 
     @Override

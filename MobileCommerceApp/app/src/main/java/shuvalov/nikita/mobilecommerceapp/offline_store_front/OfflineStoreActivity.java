@@ -1,5 +1,7 @@
 package shuvalov.nikita.mobilecommerceapp.offline_store_front;
 
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,6 +52,13 @@ public class OfflineStoreActivity extends AppCompatActivity {
         products.add(new Product("Holy Grail", "Holds 22 fl.oz of liquid", 3, 14.99));
         products.add(new Product("Bottled Lightning", "Do not use while in Bathtub", 4, 10.99));
         products.add(new Product("Monkey Paw", "Grants wishes and great for scratching hard to reach areas", 5, 87.99));
+        OfflineSQLOpenHelper dbHelper = OfflineSQLOpenHelper.getMyInstance(this);
+        if(dbHelper.isEmpty()){
+            for(Product product:products){
+                dbHelper.addProductToInventory(product);
+            }
+        }
+
     }
 
 }
