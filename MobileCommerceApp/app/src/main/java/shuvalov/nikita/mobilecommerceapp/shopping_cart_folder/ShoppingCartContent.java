@@ -34,4 +34,8 @@ public class ShoppingCartContent {
         mShoppingCartContents.clear();
     }
 
+    public void removeItemByIndex(int index){
+        mShoppingCartContents.remove(index);
+    }
+
 }

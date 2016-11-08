@@ -5,6 +5,10 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import shuvalov.nikita.mobilecommerceapp.MainActivity;
@@ -46,5 +50,24 @@ public class OfflineDetailActivity extends AppCompatActivity implements OfflineD
         ShoppingCartContent.getInstance().addToShoppingCart(product);
 
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.offline_detail_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.shopping_cart:
+                Intent intent = new Intent(this, ShoppingCartActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                Log.d("Err: ", "You clicked on something that doesn't exist.");
+                return false;
+        }
     }
 }
