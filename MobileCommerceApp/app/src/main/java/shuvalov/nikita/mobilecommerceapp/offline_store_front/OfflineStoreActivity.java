@@ -25,8 +25,8 @@ public class OfflineStoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_store);
 
-        products = new ArrayList<>();
-        debugProductList();
+        products = OfflineSQLOpenHelper.getMyInstance(this).getInventoryAsList();
+//        debugProductList();
 
         //This block of code figures out the size of the screen, particularly the width.
         Point size= new Point();

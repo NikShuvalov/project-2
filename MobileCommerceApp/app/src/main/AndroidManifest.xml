@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".offline_store_front.OfflineDetailActivity">
         </activity>
+        <activity android:name=".shopping_cart_folder.ShoppingCartActivity">
+        </activity>
     </application>
 
 </manifest>

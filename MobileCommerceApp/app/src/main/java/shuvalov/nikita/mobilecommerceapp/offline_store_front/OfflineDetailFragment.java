@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,11 +19,8 @@ import shuvalov.nikita.mobilecommerceapp.R;
 
 
 public class OfflineDetailFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
 
-    // TODO: Rename and change types of parameters
     private String mItemName;
 
     private OnFragmentClickListener mListener;
@@ -31,7 +29,6 @@ public class OfflineDetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public static OfflineDetailFragment newInstance(String itemName) {
         OfflineDetailFragment fragment = new OfflineDetailFragment();
         Bundle args = new Bundle();
@@ -63,18 +60,26 @@ public class OfflineDetailFragment extends Fragment {
         TextView detailsView = (TextView)view.findViewById(R.id.item_details_text);
         ImageView itemImage = (ImageView)view.findViewById(R.id.item_image);
         TextView priceView = (TextView)view.findViewById(R.id.cost_text);
+        Button buyButton = (Button)view.findViewById(R.id.buy_button);
 
         Product selectedProduct = OfflineSQLOpenHelper.getMyInstance(view.getContext()).getProductByName(mItemName);
         nameView.setText(selectedProduct.getName());
         detailsView.setText(selectedProduct.getDescription());
         priceView.setText(String.valueOf(selectedProduct.getPrice()));
+        buyButton.setOnClickListener(new View.OnClickListener() { //When button is clicked, should add item to shopping cart.
+            @Override
+            public void onClick(View view) {
+                //For now going to send user to shopping cart activity instead of adding to shopping cart.
+                //ToDo:Change functionality after debugging.
+                onButtonPressed();
+            }
+        });
         //ToDo: Have image reference set to itemImageView
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed() {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction(mItemName);
         }
     }
 
@@ -96,6 +101,6 @@ public class OfflineDetailFragment extends Fragment {
     }
 
     public interface OnFragmentClickListener {
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(String itemName);
     }
 }

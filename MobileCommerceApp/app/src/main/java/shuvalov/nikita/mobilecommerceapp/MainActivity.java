@@ -13,12 +13,14 @@ import shuvalov.nikita.mobilecommerceapp.offline_store_front.OfflineAdapter;
 import shuvalov.nikita.mobilecommerceapp.offline_store_front.OfflineStoreActivity;
 
 
-/*ToDo:Create Offline mode store. This will be based off of a preset database.
-ToDo: Offline Activity will have cardviews in a recyclerView of 2 columns.
-CardViews will contain an image of the product, a short description/probably not and a price.
+/*
 Offline activity will include a FAB
 ToDo: Use strings.xml and colors.xml.
-ToDo:
+ToDo: Add back button on detail activity.
+ToDo: Make a functioning toolbar.
+ToDo: Add an onSwipeListener for detailfragment so that user can scroll to next/previous item without having to go back to listview.
+
+In Case I run out of item Ideas: https://en.wikipedia.org/wiki/List_of_mythological_objects
 */
 public class MainActivity extends AppCompatActivity{
     public static final String ITEM_NAME_KEY = "item_name_key";
