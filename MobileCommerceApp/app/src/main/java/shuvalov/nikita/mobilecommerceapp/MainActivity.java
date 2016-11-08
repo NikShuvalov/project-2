@@ -16,7 +16,6 @@ import shuvalov.nikita.mobilecommerceapp.offline_store_front.OfflineStoreActivit
 /*
 Offline activity will include a FAB
 ToDo: Use strings.xml and colors.xml.
-ToDo: Add back button on detail activity.
 ToDo: Make a functioning toolbar.
 ToDo: Add an onSwipeListener for detailfragment so that user can scroll to next/previous item without having to go back to listview.
 
@@ -28,7 +27,6 @@ In Case I run out of item Ideas: https://en.wikipedia.org/wiki/List_of_mythologi
 */
 public class MainActivity extends AppCompatActivity{
     public static final String ITEM_NAME_KEY = "item_name_key";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

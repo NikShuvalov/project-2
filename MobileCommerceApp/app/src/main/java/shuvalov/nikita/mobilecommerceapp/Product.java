@@ -9,10 +9,6 @@ public class Product {
     private int mImageRef;
     private double mPrice;
 
-
-    //Idea: Add a weight to products, higher weight items cost more to ship.
-
-
     public Product(String name, String description, int imageRef, double price) {
         mName = name;
         mDescription = description;

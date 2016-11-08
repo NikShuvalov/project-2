@@ -17,12 +17,14 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import shuvalov.nikita.mobilecommerceapp.Product;
 import shuvalov.nikita.mobilecommerceapp.R;
+import shuvalov.nikita.mobilecommerceapp.shopping_cart_folder.ShoppingCartActivity;
 
 public class OfflineStoreActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -106,6 +108,19 @@ public class OfflineStoreActivity extends AppCompatActivity {
                 mAdapter.replaceData(relevantProducts);
             }
 
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.shopping_cart:
+                Intent intent = new Intent(this, ShoppingCartActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                Log.d("Err: ", "You clicked on something that doesn't exist.");
+                return false;
         }
     }
 }
