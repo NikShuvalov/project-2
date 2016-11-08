@@ -11,8 +11,26 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="shuvalov.nikita.mobilecommerceapp.shopping_cart_folder.ShoppingCartActivity">
 
+
+    <Button
+        android:id="@+id/checkout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkout_button_text"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:id="@+id/back_to_store_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/keep_shopping"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/shopping_cart_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_above="@id/back_to_store_button"/>
 </RelativeLayout>
