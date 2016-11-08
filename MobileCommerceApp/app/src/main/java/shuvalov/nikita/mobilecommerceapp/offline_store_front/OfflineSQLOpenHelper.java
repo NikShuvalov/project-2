@@ -34,6 +34,8 @@ public class OfflineSQLOpenHelper extends SQLiteOpenHelper {
 
 
 
+    //ToDo: Use a sharedpreferences to keep track of user's max price range. And use that number to filter products.
+
 
     private static OfflineSQLOpenHelper myInstance;
 
@@ -111,9 +113,37 @@ public class OfflineSQLOpenHelper extends SQLiteOpenHelper {
                     c.getString(c.getColumnIndex(COL_DESCRIPTION)),
                     c.getInt(c.getColumnIndex(COL_IMG_REF)),
                     c.getDouble(c.getColumnIndex(COL_PRICE)));
+            db.close();
             return retrievedProduct;//Based on item name create a product with those attributes.
         }
         return null; //This shouldn't happen.
+    }
+
+    public ArrayList<Product> searchProducts(String query){
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<Product> matchingProducts = new ArrayList<>();
+
+        //Search based on query parameters if name or description contains query return appropriate items.
+        Cursor c = db.query(OFFLINE_TABLE_NAME,
+                null,
+                COL_NAME +" LIKE ? OR "+ COL_DESCRIPTION+" LIKE ?",
+                new String[]{"%"+query+"%","%"+query+"%"},
+                null,
+                null,
+                null);
+        if(c.moveToFirst()){
+            while(!c.isAfterLast()){
+                matchingProducts.add(new Product(c.getString(c.getColumnIndex(COL_NAME)),
+                        c.getString(c.getColumnIndex(COL_DESCRIPTION)),
+                        c.getInt(c.getColumnIndex(COL_IMG_REF)),
+                        c.getDouble(c.getColumnIndex(COL_PRICE))
+                        ));
+                c.moveToNext();
+            }
+            c.close();
+        }
+        db.close();
+        return matchingProducts;
     }
 
 }

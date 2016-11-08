@@ -20,6 +20,10 @@ ToDo: Add back button on detail activity.
 ToDo: Make a functioning toolbar.
 ToDo: Add an onSwipeListener for detailfragment so that user can scroll to next/previous item without having to go back to listview.
 
+Stretch Goal ToDo-es
+ToDo: Randomly generate items in the store based on a large database.
+ToDo: Add a weight attribute to products which affects price of shipping upon checkout.
+
 In Case I run out of item Ideas: https://en.wikipedia.org/wiki/List_of_mythological_objects
 */
 public class MainActivity extends AppCompatActivity{

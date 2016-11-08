@@ -62,6 +62,11 @@ public class OfflineAdapter extends RecyclerView.Adapter<OfflineViewHolder> {
         return mInventory.size();
     }
 
+
+    public void replaceData(ArrayList<Product> newList){
+        mInventory = newList;
+        notifyDataSetChanged();
+    }
 }
 
 class OfflineViewHolder extends RecyclerView.ViewHolder{
@@ -79,4 +84,5 @@ class OfflineViewHolder extends RecyclerView.ViewHolder{
         mPriceView = (TextView) itemView.findViewById(R.id.price_view);
         mImageView = (ImageView) itemView.findViewById(R.id.item_image);
     }
+
 }

@@ -29,5 +29,9 @@ public class ShoppingCartContent {
     public ArrayList<Product> getShoppingCartContents(){
         return mShoppingCartContents;
     }
-    
+
+    public void onCheckout(){
+        mShoppingCartContents.clear();
+    }
+
 }

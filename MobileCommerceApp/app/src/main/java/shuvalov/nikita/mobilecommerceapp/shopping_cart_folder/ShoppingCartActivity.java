@@ -22,16 +22,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
 
-        //ToDo: Create a singleton to store shopping cart content.
-        //ToDo: Retrieve the shopping cart content list and display in recyclerView.
-        //Temporary shoppingList to test shoppingCart
-        final ArrayList<Product> inCart = new ArrayList<>();
+        final ArrayList<Product> inCart = ShoppingCartContent.getInstance().getShoppingCartContents();
 
         checkout = (Button)findViewById(R.id.checkout_button);
         keepShopping=(Button)findViewById(R.id.back_to_store_button);
-
-        inCart.add(new Product("Unconvincing Toupee","\"This is my real hair.\"",5, 9.99));
-        inCart.add(new Product("Primary color pantsuit", "A stylish pant suit designed by Marc Ecko. Popular amongst Korean Dictators, Yu-Gi-Oh villians, and female presidential candidates.",6,129.99));
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.shopping_cart_recycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -43,8 +37,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //ToDo: Remove all items from shopping cart in singleton
-                inCart.clear();
+
+              ShoppingCartContent.getInstance().onCheckout();
                 shoppingCartAdapter.notifyDataSetChanged();
                 Toast.makeText(ShoppingCartActivity.this, "Checkout complete", Toast.LENGTH_SHORT).show();
             }

@@ -5,4 +5,5 @@
     <string name="empty_cart">Looks like you have no items in your cart yet, why not peruse the wares?</string>
     <string name="checkout_button_text">Checkout</string>
     <string name="keep_shopping">Continue shopping</string>
+    <string name="search_hint">Enter search here</string>
 </resources>

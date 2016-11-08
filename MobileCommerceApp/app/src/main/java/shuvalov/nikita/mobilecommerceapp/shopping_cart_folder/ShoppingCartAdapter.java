@@ -33,6 +33,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartViewHo
         if(mShoppingCartContent.isEmpty()){//If cart is empty, display this single viewholder.
             holder.mImageView.setImageResource(R.drawable.ic_empty_cart);
             holder.mNameView.setText(R.string.empty_cart);
+            holder.mCostView.setText("");
         }else{
             Product product = mShoppingCartContent.get(holder.getAdapterPosition());
             holder.mNameView.setText(product.getName());

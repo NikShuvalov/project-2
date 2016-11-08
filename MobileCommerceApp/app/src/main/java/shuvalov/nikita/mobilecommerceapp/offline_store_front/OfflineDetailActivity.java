@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import shuvalov.nikita.mobilecommerceapp.MainActivity;
+import shuvalov.nikita.mobilecommerceapp.Product;
 import shuvalov.nikita.mobilecommerceapp.R;
 import shuvalov.nikita.mobilecommerceapp.shopping_cart_folder.ShoppingCartActivity;
+import shuvalov.nikita.mobilecommerceapp.shopping_cart_folder.ShoppingCartContent;
 
 public class OfflineDetailActivity extends AppCompatActivity implements OfflineDetailFragment.OnFragmentClickListener {
 
@@ -24,7 +26,11 @@ public class OfflineDetailActivity extends AppCompatActivity implements OfflineD
     @Override
     public void onFragmentInteraction(String itemName) {
         Intent intent = new Intent(OfflineDetailActivity.this, ShoppingCartActivity.class);
-        intent.putExtra(MainActivity.ITEM_NAME_KEY,itemName);
+
+        //Use offline database helper to make a copy of the product by the itemName and add that product to shopping cart singleton.
+        Product product = OfflineSQLOpenHelper.getMyInstance(this.getApplicationContext()).getProductByName(itemName);
+        ShoppingCartContent.getInstance().addToShoppingCart(product);
+
         startActivity(intent);
     }
 }
