@@ -53,19 +53,20 @@ public class OfflineDetailFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        Log.d("Rancor", "ON VIEW CREATED RAN");
         super.onViewCreated(view, savedInstanceState);
 
         TextView nameView = (TextView) view.findViewById(R.id.item_name);
         TextView detailsView = (TextView)view.findViewById(R.id.item_details_text);
         ImageView itemImage = (ImageView)view.findViewById(R.id.item_image);
-        TextView priceView = (TextView)view.findViewById(R.id.cost_text);
         Button buyButton = (Button)view.findViewById(R.id.buy_button);
 
         Product selectedProduct = OfflineSQLOpenHelper.getMyInstance(view.getContext()).getProductByName(mItemName);
         nameView.setText(selectedProduct.getName());
         detailsView.setText(selectedProduct.getDescription());
-        priceView.setText(String.valueOf(selectedProduct.getPrice()));
+        buyButton.setText("$"+String.valueOf(selectedProduct.getPrice()));
+        buyButton.setBackgroundColor(getResources().getColor(R.color.purchase_button));
+
+
         buyButton.setOnClickListener(new View.OnClickListener() { //When button is clicked, should add item to shopping cart.
             @Override
             public void onClick(View view) {

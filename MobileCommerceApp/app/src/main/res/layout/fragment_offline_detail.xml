@@ -7,41 +7,39 @@
 
     <ImageView
         android:id="@+id/item_image"
-        android:layout_margin="15dp"
+        android:layout_marginBottom="15dp"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@android:color/holo_green_light"/>
+
+    <Button
+        android:id="@+id/buy_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_image"
+        android:layout_centerHorizontal="true"
+        android:text="PRICE OF ITEM GOES HERE"
+        android:background="#048901"
+        android:textColor="#ffffff"
+        />
 
     <TextView
         android:id="@+id/item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item_image"
+        android:layout_below="@id/buy_button"
+        android:layout_marginTop="15dp"
         android:layout_alignLeft="@id/item_image"
         android:text="THIS IS THE NAME OF THE ITEM"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:textColor="#333"
         />
-    <TextView
-        android:id="@+id/cost_text"
-        android:text="PRICE GOES HERE"
-        android:textSize="30sp"
-        android:textColor="#d4ca0a"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/buy_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:text="Buy"/>
+
+
     <ScrollView
         android:id="@+id/item_details_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/cost_text"
         android:layout_alignLeft="@id/item_image"
         android:layout_alignRight="@id/item_image"
         android:layout_below="@id/item_name">

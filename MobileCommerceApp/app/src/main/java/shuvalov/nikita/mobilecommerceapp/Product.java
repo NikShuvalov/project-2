@@ -42,6 +42,4 @@ public class Product {
         cost = (double) newNumber;
         return cost/100.00;
     }
-
-
 }
