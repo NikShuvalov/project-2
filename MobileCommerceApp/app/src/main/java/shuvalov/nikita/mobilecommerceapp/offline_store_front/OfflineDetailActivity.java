@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import shuvalov.nikita.mobilecommerceapp.MainActivity;
 import shuvalov.nikita.mobilecommerceapp.Product;
@@ -18,6 +20,18 @@ public class OfflineDetailActivity extends AppCompatActivity implements OfflineD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_detail);
 
+        //Adds toolbar and back navigation
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() { //Clicking on back button cause you to go back to storeFront.
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         OfflineDetailFragment offlineDetailFragment = OfflineDetailFragment.newInstance(getIntent().getStringExtra(MainActivity.ITEM_NAME_KEY));
         getSupportFragmentManager().beginTransaction().add(R.id.detail_fragment_container, offlineDetailFragment).commit();
