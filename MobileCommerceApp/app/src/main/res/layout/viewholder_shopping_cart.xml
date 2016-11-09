@@ -3,6 +3,9 @@
                 android:id="@+id/holder_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+    <!--ToDo: Make a cardView to hold this-->
+
     <ImageView
         android:id="@+id/img_thumbnail"
         android:layout_width="50dp"
@@ -23,8 +26,6 @@
         android:layout_below="@id/item_name"
         android:layout_toRightOf="@+id/img_thumbnail"
         android:text="THIS IS THE PRICE"/>
-
-
 
 
 

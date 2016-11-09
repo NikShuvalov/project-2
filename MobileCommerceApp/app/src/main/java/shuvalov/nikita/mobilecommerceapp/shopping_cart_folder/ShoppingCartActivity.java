@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -29,17 +30,21 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.shopping_cart_recycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        final ShoppingCartAdapter shoppingCartAdapter = new ShoppingCartAdapter(inCart);
+        final ShoppingCartRecyclerAdapterSC shoppingCartRecyclerAdapter = new ShoppingCartRecyclerAdapterSC(inCart);
+
+        ItemTouchHelper.Callback callback = new SCItemTouchHelperAdapterCallback(shoppingCartRecyclerAdapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(shoppingCartAdapter);
+        recyclerView.setAdapter(shoppingCartRecyclerAdapter);
 
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
               ShoppingCartContent.getInstance().onCheckout();
-                shoppingCartAdapter.notifyDataSetChanged();
+                shoppingCartRecyclerAdapter.notifyDataSetChanged();
                 Toast.makeText(ShoppingCartActivity.this, "Checkout complete", Toast.LENGTH_SHORT).show();
             }
         });

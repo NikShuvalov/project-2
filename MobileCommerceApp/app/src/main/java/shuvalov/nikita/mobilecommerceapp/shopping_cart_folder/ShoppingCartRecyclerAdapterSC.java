@@ -19,10 +19,10 @@ import shuvalov.nikita.mobilecommerceapp.R;
  * Created by NikitaShuvalov on 11/8/16.
  */
 
-public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartViewHolder>{
+public class ShoppingCartRecyclerAdapterSC extends RecyclerView.Adapter<ShoppingCartViewHolder> implements SCItemTouchHelperAdapter {
     ArrayList<Product> mShoppingCartContent;
 
-    public ShoppingCartAdapter(ArrayList<Product> shoppingCartContent){mShoppingCartContent = shoppingCartContent;}
+    public ShoppingCartRecyclerAdapterSC(ArrayList<Product> shoppingCartContent){mShoppingCartContent = shoppingCartContent;}
 
     @Override
     public ShoppingCartViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -74,6 +74,12 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartViewHo
             return mShoppingCartContent.size();
         }
     }
+
+    @Override
+    public void onItemDismiss(int position) {//On Swipe remove item
+        ShoppingCartContent.getInstance().removeItemByIndex(position);
+        notifyItemRemoved(position);
+    }
 }
 
 
@@ -89,7 +95,5 @@ class ShoppingCartViewHolder extends RecyclerView.ViewHolder{
         mNameView = (TextView)itemView.findViewById(R.id.item_name);
         mCostView = (TextView)itemView.findViewById(R.id.cost_text);
         mLayout = (RelativeLayout)itemView.findViewById(R.id.holder_layout);
-
-
     }
 }
