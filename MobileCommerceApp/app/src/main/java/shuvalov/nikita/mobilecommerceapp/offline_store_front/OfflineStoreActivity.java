@@ -39,8 +39,15 @@ public class OfflineStoreActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
+
+        //FixMe: This will need to be moved around if I'm keeping the DebugProductList call
         products = OfflineSQLOpenHelper.getMyInstance(this).getInventoryAsList();
 //        debugProductList();
+
+        OfflineStoreInventory offlineStoreInventory = OfflineStoreInventory.getInstance();
+        if (offlineStoreInventory.inventoryIsEmpty()){
+            offlineStoreInventory.replaceInventory(products);
+        }
 
         //This block of code figures out the size of the screen, particularly the width.
         Point size= new Point();
@@ -64,11 +71,11 @@ public class OfflineStoreActivity extends AppCompatActivity {
     public void debugProductList(){
         products.add(new Product("Master Sword","Hero of times' sword said to be the sword that defeated Ganondorf", 0, 19.99));
         products.add(new Product("Pheonix Down", "Revives people", 1, 2.99));
-        products.add(new Product("Ugly X-mas Sweater", "Perfect for keeping away potential mates and the frost", 2, 49.99));
+        products.add(new Product("Ugly X-mas Sweater", "Perfect for staving off the frost and potential mates.", 2, 49.99));
         products.add(new Product("Holy Grail", "Holds 22 fl.oz of liquid", 3, 14.99));
-        products.add(new Product("Bottled Lightning", "Do not use while in Bathtub", 4, 10.99));
+        products.add(new Product("Bottled Lightning", "*Do not use while in Bathtub*", 4, 10.99));
         products.add(new Product("Monkey Paw", "Grants wishes and great for scratching hard to reach areas", 5, 87.99));
-        products.add(new Product("Unconvincing Toupee","\"This is my real hair.\"",5, 9.99));
+        products.add(new Product("Unconvincing Toupee","Thick is the head that wears this crown.",5, 9.99));
         products.add(new Product("Primary color pantsuit", "A stylish pant suit designed by Marc Ecko. Popular amongst Korean Dictators, Yu-Gi-Oh villians, and female presidential candidates.",6,129.99));
 
         OfflineSQLOpenHelper dbHelper = OfflineSQLOpenHelper.getMyInstance(this);

@@ -20,6 +20,7 @@ import shuvalov.nikita.mobilecommerceapp.R;
 
 public class OfflineDetailFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
+    private Product selectedProduct;
 
     private String mItemName;
 
@@ -60,10 +61,11 @@ public class OfflineDetailFragment extends Fragment {
         ImageView itemImage = (ImageView)view.findViewById(R.id.item_image);
         Button buyButton = (Button)view.findViewById(R.id.buy_button);
 
-        Product selectedProduct = OfflineSQLOpenHelper.getMyInstance(view.getContext()).getProductByName(mItemName);
+        //Using the itemName key that was passed, create/get that object based on info from DB.
+        selectedProduct = OfflineSQLOpenHelper.getMyInstance(view.getContext()).getProductByName(mItemName);
         nameView.setText(selectedProduct.getName());
         detailsView.setText(selectedProduct.getDescription());
-        buyButton.setText("$"+String.valueOf(selectedProduct.getPrice()));
+        buyButton.setText("$"+selectedProduct.getPrice());
         buyButton.setBackgroundColor(getResources().getColor(R.color.purchase_button));
 
 

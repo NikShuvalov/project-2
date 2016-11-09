@@ -16,7 +16,6 @@ import shuvalov.nikita.mobilecommerceapp.offline_store_front.OfflineStoreActivit
 /*
 Offline activity will include a FAB, ehhhh don't see much of a point of a FAB anymore.
 ToDo: Use strings.xml and colors.xml.
-ToDo: Make a functioning toolbar.
 ToDo: Add an onSwipeListener for detailfragment so that user can scroll to next/previous item without having to go back to listview.
 ToDo: Put shopping cart items into a cardView.
 
