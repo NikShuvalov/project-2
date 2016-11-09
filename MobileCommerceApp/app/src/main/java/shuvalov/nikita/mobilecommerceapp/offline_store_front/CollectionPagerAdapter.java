@@ -14,21 +14,21 @@ import shuvalov.nikita.mobilecommerceapp.Product;
 
 public class CollectionPagerAdapter extends FragmentStatePagerAdapter{
 
-    private ArrayList<Product> mStoreInventory;
+    private ArrayList<Product> mFilteredInventory;
 
-    public CollectionPagerAdapter(FragmentManager fm) {
+    public CollectionPagerAdapter(FragmentManager fm, ArrayList<Product> relevantInventory) {
         super(fm);
-        mStoreInventory = OfflineStoreInventory.getInstance().getStoreFrontInventory();
+        mFilteredInventory = relevantInventory;
     }
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = OfflineDetailFragment.newInstance(mStoreInventory.get(position).getName());
+        Fragment fragment = OfflineDetailFragment.newInstance(mFilteredInventory.get(position).getName());
         return fragment;
     }
 
     @Override
     public int getCount() {
-        return mStoreInventory.size();
+        return mFilteredInventory.size();
     }
 }

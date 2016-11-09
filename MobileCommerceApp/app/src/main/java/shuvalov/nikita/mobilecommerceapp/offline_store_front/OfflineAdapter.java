@@ -51,9 +51,6 @@ public class OfflineAdapter extends RecyclerView.Adapter<OfflineViewHolder> {
                 view.getContext().startActivity(intent);
             }
         });
-
-
-
     }
 
     @Override

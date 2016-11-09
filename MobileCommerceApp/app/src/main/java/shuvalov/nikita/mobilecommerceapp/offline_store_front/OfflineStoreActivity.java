@@ -43,10 +43,6 @@ public class OfflineStoreActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("mySharedPreferences", MODE_PRIVATE);
-
-        mMaxPriceRange = sharedPreferences.getFloat("max_price_range", Float.MAX_VALUE);
-        Toast.makeText(this, mMaxPriceRange.toString(), Toast.LENGTH_SHORT).show();
 
         //This block of code figures out the size of the screen, particularly the width.
         Point size= new Point();
@@ -59,33 +55,35 @@ public class OfflineStoreActivity extends AppCompatActivity {
         debugProductList(); //If database is empty, populate it with data.
         mProducts = OfflineSQLOpenHelper.getMyInstance(this).getInventoryAsList();//Defines whole inventory.
 
+        //If the singleton is empty, let's add products to it.
+        OfflineStoreInventory offlineStoreInventory = OfflineStoreInventory.getInstance();
+        if (offlineStoreInventory.inventoryIsEmpty()){
+            offlineStoreInventory.replaceInventory(mProducts);
+        }
         displayPriceRelevantProducts();
     }
 
 
     public void displayPriceRelevantProducts(){
-        ArrayList<Product> relevantProducts = OfflineSQLOpenHelper.getMyInstance(this).getProductsCheaperThan(mMaxPriceRange);//Defines relevant inventory.
+        SharedPreferences sharedPreferences = getSharedPreferences("mySharedPreferences", MODE_PRIVATE);
+        mMaxPriceRange = sharedPreferences.getFloat("max_price_range", Float.MAX_VALUE);
 
-        if(relevantProducts.isEmpty()){
-            relevantProducts = mProducts;
+        ArrayList<Product> priceRelevantProducts = OfflineSQLOpenHelper.getMyInstance(this).getProductsCheaperThan(mMaxPriceRange);//Defines relevant inventory.
+
+        if(priceRelevantProducts.isEmpty()){
+            priceRelevantProducts = mProducts;
             Toast.makeText(this, "No products match criteria", Toast.LENGTH_SHORT).show();
+        }else{
+            OfflineStoreInventory.getInstance().setPriceRelevantInventory(priceRelevantProducts);
         }
-        OfflineStoreInventory offlineStoreInventory = OfflineStoreInventory.getInstance();
-        if (offlineStoreInventory.inventoryIsEmpty()){
-            offlineStoreInventory.replaceInventory(relevantProducts);
-        }
-
-
 
         mRecyclerView = (RecyclerView) findViewById(R.id.offline_store_recycler);
 
         //Using the displaywidth I determine how many columns will display, my screensize is 1440
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, mGridColumns);
-        mAdapter = new OfflineAdapter(relevantProducts);
+        mAdapter = new OfflineAdapter(priceRelevantProducts);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
-
-
     }
 
     @Override
@@ -114,7 +112,6 @@ public class OfflineStoreActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = this.getMenuInflater();
         menuInflater.inflate(R.menu.offline_menu, menu);
-
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView)menu.findItem(R.id.search).getActionView();
         ComponentName componentName = new ComponentName(this, OfflineStoreActivity.class);
@@ -149,7 +146,7 @@ public class OfflineStoreActivity extends AppCompatActivity {
                 Intent cartIntent = new Intent(this, ShoppingCartActivity.class);
                 startActivity(cartIntent);
                 return true;
-            case R.id.remove_filters://Meant to replace data after search
+            case R.id.remove_filters://This to refreshes data after search, but price max remains
                 mAdapter.replaceData(mProducts);
                 return true;
             case R.id.settings:
@@ -158,7 +155,7 @@ public class OfflineStoreActivity extends AppCompatActivity {
                 return true;
             case R.id.clear_settings:
                 getSharedPreferences("mySharedPreferences",MODE_PRIVATE).edit().clear().apply();
-
+                OfflineStoreInventory.getInstance().onResetPriceCeiling();
                 displayPriceRelevantProducts();
                 return true;
             default:
@@ -166,5 +163,6 @@ public class OfflineStoreActivity extends AppCompatActivity {
                 return false;
         }
     }
+
 
 }

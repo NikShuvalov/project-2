@@ -36,7 +36,7 @@ public class OfflineDetailActivity extends AppCompatActivity implements OfflineD
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ArrayList<Product> mInventory = OfflineStoreInventory.getInstance().getStoreFrontInventory();
+        ArrayList<Product> mPriceRelevantInventory = OfflineStoreInventory.getInstance().getPriceRelevantInventory();
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() { //Clicking on back button cause you to go back to storeFront.
             @Override
@@ -46,61 +46,24 @@ public class OfflineDetailActivity extends AppCompatActivity implements OfflineD
         });
 
         //Pass the item name, which is the unique key. That key will instantiate a Product and use it's attributes to populate the views in the fragment.
-
-        CollectionPagerAdapter collectionPagerAdapter = new CollectionPagerAdapter(getSupportFragmentManager());
-
+        CollectionPagerAdapter collectionPagerAdapter = new CollectionPagerAdapter(getSupportFragmentManager(), OfflineStoreInventory.getInstance().getPriceRelevantInventory());
         ViewPager fragmentPager = (ViewPager)findViewById(R.id.detail_fragment_container);
         int currentIndex = 0;
 
         //Get item so we can keep track of what index we're on. Had to use a for loop because fragment holds a copy of Product object instead of the Object itself.
-        for(Product product:mInventory) {
+        for(Product product:mPriceRelevantInventory) {
             if (getIntent().getStringExtra(MainActivity.ITEM_NAME_KEY).equals(product.getName())) {
-                currentIndex = mInventory.indexOf(product);
+                currentIndex = mPriceRelevantInventory.indexOf(product);
                 break;
             }
         }
+
         fragmentPager.setAdapter(collectionPagerAdapter);
         fragmentPager.setCurrentItem(currentIndex);
 
-//            }
-//        }
-//        setButtonVisibilities();
-//
-//
-//        nextButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                currentIndex++;
-//                OfflineDetailFragment updatedOfflineDetailFragment = OfflineDetailFragment.newInstance(mInventory.get(currentIndex).getName());
-//                getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment_container,updatedOfflineDetailFragment).commit();
-//                setButtonVisibilities();
-//            }
-//        });
-//        previousButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                currentIndex--;
-//                OfflineDetailFragment updatedOfflineDetailFragment = OfflineDetailFragment.newInstance(mInventory.get(currentIndex).getName());
-//                getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment_container,updatedOfflineDetailFragment).commit();
-//                setButtonVisibilities();
-//            }
-//        });
-//
-//    }
-//
-//
-//    public void setButtonVisibilities(){
-//        //If we are currently looking at the last item of the inventory, get rid of the nextbutton and viceversa for previous button.
-//        if (currentIndex == 0){
-//            previousButton.setVisibility(View.INVISIBLE);
-//        }else if (currentIndex == mInventory.size()-1){
-//            nextButton.setVisibility(View.INVISIBLE);
-//        }else{
-//            previousButton.setVisibility(View.VISIBLE);
-//            nextButton.setVisibility(View.VISIBLE);
-//        }
-
     }
+
+
 
     @Override
     public void onFragmentInteraction(String itemName) {
@@ -110,12 +73,16 @@ public class OfflineDetailActivity extends AppCompatActivity implements OfflineD
         Toast.makeText(this, String.format("%s added to cart",itemName), Toast.LENGTH_SHORT).show();
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.offline_detail_menu, menu);
         return true;
     }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -130,26 +97,6 @@ public class OfflineDetailActivity extends AppCompatActivity implements OfflineD
                 return false;
         }
     }
-
-
-//    @Override
-//    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-//        Point point = new Point();
-//        Display display = getWindowManager().getDefaultDisplay();
-//        display.getSize(point);
-//        int screen_width = point.x;
-//        int screen_height = point.y;
-//        float horizontal_delta = Math.abs(motionEvent.getX() - motionEvent1.getX());
-//        float vertical_delta = Math.abs(motionEvent.getY()-motionEvent1.getY());
-//        if(motionEvent.getX()<motionEvent1.getX() && horizontal_delta>screen_width*0.4){
-//            Toast.makeText(this, "Swipe towards Left", Toast.LENGTH_SHORT).show();
-//        }else if (motionEvent.getX()>motionEvent1.getX() && horizontal_delta>screen_width*0.4){
-//            Toast.makeText(this, "Swipe towards Right", Toast.LENGTH_SHORT).show();
-//        }else if (motionEvent.getY()>motionEvent1.getY() && vertical_delta>screen_height*0.5){
-//            Toast.makeText(this, "Swipe towards Top", Toast.LENGTH_SHORT).show();
-//        }
-//        return false;
-//    }
 
 
 }
