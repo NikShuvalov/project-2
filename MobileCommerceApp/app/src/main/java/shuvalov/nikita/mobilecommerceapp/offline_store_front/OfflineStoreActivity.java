@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Point;
@@ -23,66 +24,89 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import shuvalov.nikita.mobilecommerceapp.Product;
+import shuvalov.nikita.mobilecommerceapp.ProfileActivity;
 import shuvalov.nikita.mobilecommerceapp.R;
 import shuvalov.nikita.mobilecommerceapp.shopping_cart_folder.ShoppingCartActivity;
 
 public class OfflineStoreActivity extends AppCompatActivity {
-    private RecyclerView mRecyclerView;
-    ArrayList<Product> products;
+    RecyclerView mRecyclerView;
+    ArrayList<Product> mProducts;
     OfflineAdapter mAdapter;
+    Float mMaxPriceRange;
+    int mGridColumns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_store);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("mySharedPreferences", MODE_PRIVATE);
 
-        //FixMe: This will need to be moved around if I'm keeping the DebugProductList call
-        products = OfflineSQLOpenHelper.getMyInstance(this).getInventoryAsList();
-//        debugProductList();
-
-        OfflineStoreInventory offlineStoreInventory = OfflineStoreInventory.getInstance();
-        if (offlineStoreInventory.inventoryIsEmpty()){
-            offlineStoreInventory.replaceInventory(products);
-        }
+        mMaxPriceRange = sharedPreferences.getFloat("max_price_range", Float.MAX_VALUE);
+        Toast.makeText(this, mMaxPriceRange.toString(), Toast.LENGTH_SHORT).show();
 
         //This block of code figures out the size of the screen, particularly the width.
         Point size= new Point();
         Display display = getWindowManager().getDefaultDisplay();
         display.getSize(size);
         int display_width = size.x;
+        mGridColumns = display_width/720;
+
+
+        debugProductList(); //If database is empty, populate it with data.
+        mProducts = OfflineSQLOpenHelper.getMyInstance(this).getInventoryAsList();//Defines whole inventory.
+
+        displayPriceRelevantProducts();
+    }
+
+
+    public void displayPriceRelevantProducts(){
+        ArrayList<Product> relevantProducts = OfflineSQLOpenHelper.getMyInstance(this).getProductsCheaperThan(mMaxPriceRange);//Defines relevant inventory.
+
+        if(relevantProducts.isEmpty()){
+            relevantProducts = mProducts;
+            Toast.makeText(this, "No products match criteria", Toast.LENGTH_SHORT).show();
+        }
+        OfflineStoreInventory offlineStoreInventory = OfflineStoreInventory.getInstance();
+        if (offlineStoreInventory.inventoryIsEmpty()){
+            offlineStoreInventory.replaceInventory(relevantProducts);
+        }
+
+
 
         mRecyclerView = (RecyclerView) findViewById(R.id.offline_store_recycler);
 
         //Using the displaywidth I determine how many columns will display, my screensize is 1440
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, display_width/720);
-
-        mAdapter = new OfflineAdapter(products, display_width);
-
-
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, mGridColumns);
+        mAdapter = new OfflineAdapter(relevantProducts);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        SharedPreferences sharedPreferences = getSharedPreferences("mySharedPreferences", MODE_PRIVATE);
+        mMaxPriceRange = sharedPreferences.getFloat("max_price_range",Float.MAX_VALUE);
+        displayPriceRelevantProducts();
+        super.onResume();
     }
 
     public void debugProductList(){
-        products.add(new Product("Master Sword","Hero of times' sword said to be the sword that defeated Ganondorf", 0, 19.99));
-        products.add(new Product("Pheonix Down", "Revives people", 1, 2.99));
-        products.add(new Product("Ugly X-mas Sweater", "Perfect for staving off the frost and potential mates.", 2, 49.99));
-        products.add(new Product("Holy Grail", "Holds 22 fl.oz of liquid", 3, 14.99));
-        products.add(new Product("Bottled Lightning", "*Do not use while in Bathtub*", 4, 10.99));
-        products.add(new Product("Monkey Paw", "Grants wishes and great for scratching hard to reach areas", 5, 87.99));
-        products.add(new Product("Unconvincing Toupee","Thick is the head that wears this crown.",5, 9.99));
-        products.add(new Product("Primary color pantsuit", "A stylish pant suit designed by Marc Ecko. Popular amongst Korean Dictators, Yu-Gi-Oh villians, and female presidential candidates.",6,129.99));
-
         OfflineSQLOpenHelper dbHelper = OfflineSQLOpenHelper.getMyInstance(this);
         if(dbHelper.isEmpty()){
-            for(Product product:products){
-                dbHelper.addProductToInventory(product);
-            }
+            dbHelper.addProductToInventory(new Product("Master Sword","Hero of times' sword said to be the sword that defeated Ganondorf", 0, 19.99));
+            dbHelper.addProductToInventory(new Product("Phoenix Down", "Revives people", 1, 2.99));
+            dbHelper.addProductToInventory(new Product("Ugly X-mas Sweater", "Perfect for staving off the frost and potential mates.", 2, 49.99));
+            dbHelper.addProductToInventory(new Product("Holy Grail", "Holds 22 fl.oz of liquid", 3, 14.99));
+            dbHelper.addProductToInventory(new Product("Bottled Lightning", "*Do not use while in Bathtub*", 4, 10.99));
+            dbHelper.addProductToInventory(new Product("Monkey Paw", "Grants wishes and great for scratching hard to reach areas", 5, 87.99));
+            dbHelper.addProductToInventory(new Product("Unconvincing Toupee","Thick is the head that wears this crown.", 5, 9.99));
+            dbHelper.addProductToInventory(new Product("Primary color pantsuit", "A stylish pant suit designed by Marc Ecko. Popular amongst Korean Dictators, Yu-Gi-Oh villians, and female presidential candidates.",6,129.99));
         }
     }
 
@@ -122,12 +146,25 @@ public class OfflineStoreActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.shopping_cart:
-                Intent intent = new Intent(this, ShoppingCartActivity.class);
-                startActivity(intent);
+                Intent cartIntent = new Intent(this, ShoppingCartActivity.class);
+                startActivity(cartIntent);
+                return true;
+            case R.id.remove_filters://Meant to replace data after search
+                mAdapter.replaceData(mProducts);
+                return true;
+            case R.id.settings:
+                Intent profileIntent = new Intent(this, ProfileActivity.class);
+                startActivity(profileIntent);
+                return true;
+            case R.id.clear_settings:
+                getSharedPreferences("mySharedPreferences",MODE_PRIVATE).edit().clear().apply();
+
+                displayPriceRelevantProducts();
                 return true;
             default:
                 Log.d("Err: ", "You clicked on something that doesn't exist.");
                 return false;
         }
     }
+
 }

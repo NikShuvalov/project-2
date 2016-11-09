@@ -46,13 +46,12 @@ public class OfflineDetailActivity extends AppCompatActivity implements OfflineD
         });
 
         //Pass the item name, which is the unique key. That key will instantiate a Product and use it's attributes to populate the views in the fragment.
-//        OfflineDetailFragment offlineDetailFragment = OfflineDetailFragment.newInstance(getIntent().getStringExtra(MainActivity.ITEM_NAME_KEY));
-//        getSupportFragmentManager().beginTransaction().add(R.id.detail_fragment_container, offlineDetailFragment).commit();
 
         CollectionPagerAdapter collectionPagerAdapter = new CollectionPagerAdapter(getSupportFragmentManager());
 
         ViewPager fragmentPager = (ViewPager)findViewById(R.id.detail_fragment_container);
         int currentIndex = 0;
+
         //Get item so we can keep track of what index we're on. Had to use a for loop because fragment holds a copy of Product object instead of the Object itself.
         for(Product product:mInventory) {
             if (getIntent().getStringExtra(MainActivity.ITEM_NAME_KEY).equals(product.getName())) {
@@ -62,11 +61,6 @@ public class OfflineDetailActivity extends AppCompatActivity implements OfflineD
         }
         fragmentPager.setAdapter(collectionPagerAdapter);
         fragmentPager.setCurrentItem(currentIndex);
-
-        //Temporarily? putting up buttons so that user can switch to next item without having to go back to storeFront page
-//        nextButton = (ImageButton)findViewById(R.id.next_button);
-//        previousButton = (ImageButton)findViewById(R.id.previous_button);
-
 
 //            }
 //        }
@@ -129,6 +123,8 @@ public class OfflineDetailActivity extends AppCompatActivity implements OfflineD
                 Intent intent = new Intent(this, ShoppingCartActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.settings:
+
             default:
                 Log.d("Err: ", "You clicked on something that doesn't exist.");
                 return false;

@@ -2,6 +2,7 @@ package shuvalov.nikita.mobilecommerceapp;
 
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,8 +17,7 @@ import shuvalov.nikita.mobilecommerceapp.offline_store_front.OfflineStoreActivit
 /*
 Offline activity will include a FAB, ehhhh don't see much of a point of a FAB anymore.
 ToDo: Use strings.xml and colors.xml.
-ToDo: Add an onSwipeListener for detailfragment so that user can scroll to next/previous item without having to go back to listview.
-ToDo: Put shopping cart items into a cardView.
+ToDo: Add a Total for the shopping cart activity.
 
 Stretch Goal ToDo-es
 ToDo: Randomly generate items in the store based on a large database.
@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         Button debugAmazon = (Button) findViewById(R.id.amazondebug);
         Button offlineButton = (Button) findViewById(R.id.offline_store_button);

@@ -54,6 +54,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Finish the activity and go back to previous page you were in.
                 //ToDo: (Optional) If user hits back, tell them they can get a one-time discount if they complete checkout now.
+                //Will require some data persistence in order to make sure user doesn't swindle me.
                 finish();
             }
         });

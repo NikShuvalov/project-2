@@ -146,4 +146,28 @@ public class OfflineSQLOpenHelper extends SQLiteOpenHelper {
         return matchingProducts;
     }
 
+    public ArrayList<Product> getProductsCheaperThan(Float maxPrice){
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<Product> priceAppropriateProducts = new ArrayList<>();
+        Cursor c = db.query(OFFLINE_TABLE_NAME,
+                null,
+                COL_PRICE+ " < ?",
+                new String[]{maxPrice.toString()},
+                null,
+                null,
+                null);
+        if(c.moveToFirst()){
+            while(!c.isAfterLast()){
+                priceAppropriateProducts.add((new Product(c.getString(c.getColumnIndex(COL_NAME)),
+                        c.getString(c.getColumnIndex(COL_DESCRIPTION)),
+                        c.getInt(c.getColumnIndex(COL_IMG_REF)),
+                        c.getDouble(c.getColumnIndex(COL_PRICE))
+                )));
+                c.moveToNext();
+            }
+        }
+        c.close();
+        return priceAppropriateProducts;
+    }
+
 }

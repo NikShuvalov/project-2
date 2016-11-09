@@ -25,11 +25,10 @@ import shuvalov.nikita.mobilecommerceapp.R;
 public class OfflineAdapter extends RecyclerView.Adapter<OfflineViewHolder> {
 
     ArrayList<Product> mInventory;
-    int mDisplay_width;
 
-    public OfflineAdapter(ArrayList<Product> inventory,  int display_width) {
+
+    public OfflineAdapter(ArrayList<Product> inventory) {
         mInventory = inventory;
-        mDisplay_width = display_width;
     }
 
     @Override

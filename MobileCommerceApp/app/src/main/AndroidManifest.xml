@@ -18,18 +18,22 @@
             </intent-filter>
         </activity>
         <activity android:name=".amazon_folder.AmazonDealsActivity"/>
-        <activity android:name=".offline_store_front.OfflineStoreActivity"
+        <activity
+            android:name=".offline_store_front.OfflineStoreActivity"
             android:launchMode="singleTop">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>
+
             <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
+                <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
         </activity>
         <activity android:name=".offline_store_front.OfflineDetailActivity">
         </activity>
         <activity android:name=".shopping_cart_folder.ShoppingCartActivity">
+        </activity>
+        <activity android:name=".ProfileActivity">
         </activity>
     </application>
 

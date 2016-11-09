@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/holder_layout"
+                android:paddingTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <!--ToDo: Make a cardView to hold this-->
+    <android.support.v7.widget.CardView
+        android:id="@id/cardview_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/img_thumbnail"
@@ -26,6 +36,11 @@
         android:layout_below="@id/item_name"
         android:layout_toRightOf="@+id/img_thumbnail"
         android:text="THIS IS THE PRICE"/>
+
+            <!--Make an X button on cardview to let user remove by clicking it?-->
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
 
 

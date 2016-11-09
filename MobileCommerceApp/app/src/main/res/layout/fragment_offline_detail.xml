@@ -21,7 +21,6 @@
         android:text="PRICE OF ITEM GOES HERE"
         android:background="#048901"
         android:textColor="#ffffff"
-        android:elevation="15dp"
         />
 
     <TextView
@@ -31,7 +30,7 @@
         android:layout_below="@id/buy_button"
         android:layout_marginTop="15dp"
         android:text="THIS IS THE NAME OF THE ITEM"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:layout_centerHorizontal="true"
         android:textColor="#333"
         />
@@ -45,7 +44,7 @@
         <TextView
             android:id="@+id/item_details_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="INFO GOES IN HERE"/>
     </ScrollView>
 
