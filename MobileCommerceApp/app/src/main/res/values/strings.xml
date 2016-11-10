@@ -10,4 +10,7 @@
     <string name = "unused_message">Coming Soon!</string>
     <string name= "user_confirmation_message">Remove item from cart?</string>
     <string name = "checkout_completed">Checkout complete</string>
+    <string name= "main_button">Go to Store</string>
+    <string name= "legal">By clicking "Go To Store" and entering the store you are implicitly agreeing to the terms and conditions, and forfeit all legal rights. </string>
+    <string name="store_prompt"> Let\'s get started!</string>
 </resources>

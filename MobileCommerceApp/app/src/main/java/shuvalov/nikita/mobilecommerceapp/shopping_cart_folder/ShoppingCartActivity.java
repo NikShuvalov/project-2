@@ -93,4 +93,5 @@ public class ShoppingCartActivity extends AppCompatActivity {
             checkout.setText(checkoutText); //FixMe: Sometimes extra decimals appear.
         }
     }
+
 }
