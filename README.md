@@ -16,3 +16,8 @@ Known bugs:
 -Removing the cardview that notifies you your shopping cart is empty causes a crash upon leaving the shopping cart activity.
 -Price doesn't update on item removal.
 -At times, extra decimals are displayed in the cost.
+
+
+<p align="center">
+  <img src="screenshots/home_page.png" height="300px" /> <img src="screenshots/detail_activity.png" height="300px" /> 
+</p>
