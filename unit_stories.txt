@@ -6,7 +6,12 @@ Condition:
 3. Objects are displayed in an organized matter.
 
  — As a User, I can access the storefront.
-— As a User, I can identify objects on the storefront by name and image.
+ Can be done with espresso testing simply by clicking store button.
+ 
+ — As a User, I can identify objects on the storefront by name and image.
+Espresso(tedious)/Manual testing, all items should have an image, name and price.
+
+---
 
 Feature: Display product details
 
@@ -16,6 +21,9 @@ Condition:
 3. Information matches object’s details.
 
 - As a User, I can select an item to get more details.
+Espresso testing, clicking an item opens activity/fragment populated with that item's details.
+
+---
 
 Feature: Swipe to browse items
 Conditions:
@@ -24,7 +32,12 @@ Conditions:
 3. User can’t swipe out of range of the list.
 
 — As a User, I can swipe to navigate to other item details.
+Manual testing, espresso doesn't handle swipes easily.
+
 — As a User, I can browse items that are relevant to my search.
+Manual testing, browsing relevant objects in pager requires swiping.
+
+---
 
 Feature: Add to shopping cart
 Conditions:
@@ -32,6 +45,11 @@ Conditions:
 2. Notify user that item was added to shopping cart.
 
 —As a User, I can add an item to my shopping cart.
+Unit testing, upon adding an item the singleton that handles shopping cart content should have a reference to the added object.
+-As a User, I can see when my transaction went through.
+Manual testing, difficult to see if a toast was created with espresso.
+
+---
 
 Feature: Manipulate shopping cart
 Conditions:
@@ -42,8 +60,16 @@ Conditions:
 5. Notify user item is removed.
 
 - As a user, I can remove items from my shopping cart.
+Manual testing, for the swipe removal. Espresso testing can work for the long press removal.
+
 - As  a user, I can view my shopping cart.
+Espresso testing, clicking on shopping cart icon brings you to shopping cart activity.
+
 - As a user, I can resume shopping without my cart emptying after going back to storefront.
+Manual testing.
+
+
+---
 
 Feature: Checkout
 Conditions:
@@ -53,7 +79,12 @@ Conditions:
 4. Notify user that the transaction went through correctly.
 
 —As a user, I can see how much my total will be.
-- As a user, I can pay for/checkout my items.
+Manual testing
+
+- As a user, I can pay for and checkout my items.
+Espresso testing, clicking the checkout button and checking to make sure list cleared, and button text has been updated.
+
+---
 
 Feature: Searchability
 Condition:
@@ -63,4 +94,8 @@ Condition:
 4. Have some method of reverting the storefront display to show all objects again.
 
 - As a user, I can narrow my search by name or description text.
+With a non-changing database, espresso testing for search can be done if you know what you're looking for. If database is constantly changing would be difficult.
+
 - As  a user, I can reset my search to view all other items. 
+Espresso testing, clicking reset button causes all items to be displayed.
+
