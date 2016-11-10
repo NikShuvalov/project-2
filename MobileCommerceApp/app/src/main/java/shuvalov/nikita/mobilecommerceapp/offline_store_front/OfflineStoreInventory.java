@@ -8,7 +8,7 @@ import shuvalov.nikita.mobilecommerceapp.Product;
  * Created by NikitaShuvalov on 11/9/16.
  */
 public class OfflineStoreInventory {
-    private ArrayList<Product> mStoreFrontInventory, mPriceRelevantInventory;
+    private ArrayList<Product> mStoreFrontInventory, mRelevantInventory;
 
     private static OfflineStoreInventory ourInstance = new OfflineStoreInventory();
 
@@ -35,14 +35,11 @@ public class OfflineStoreInventory {
         return mStoreFrontInventory.isEmpty();
     }
 
-    public void setPriceRelevantInventory(ArrayList<Product> priceRelevantInventory){
-        mPriceRelevantInventory = priceRelevantInventory;
+    public void setRelevantInventory(ArrayList<Product> relevantInventory){
+        mRelevantInventory = relevantInventory;
     }
-    public ArrayList<Product> getPriceRelevantInventory(){
-        return mPriceRelevantInventory;
-    }
-    public void onResetPriceCeiling(){
-        mPriceRelevantInventory = mStoreFrontInventory;
+    public ArrayList<Product> getRelevantInventory(){
+        return mRelevantInventory;
     }
 
 }

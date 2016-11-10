@@ -36,7 +36,7 @@ public class OfflineDetailActivity extends AppCompatActivity implements OfflineD
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ArrayList<Product> mPriceRelevantInventory = OfflineStoreInventory.getInstance().getPriceRelevantInventory();
+        ArrayList<Product> relevantInventory = OfflineStoreInventory.getInstance().getRelevantInventory();
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() { //Clicking on back button cause you to go back to storeFront.
             @Override
@@ -46,14 +46,14 @@ public class OfflineDetailActivity extends AppCompatActivity implements OfflineD
         });
 
         //Pass the item name, which is the unique key. That key will instantiate a Product and use it's attributes to populate the views in the fragment.
-        CollectionPagerAdapter collectionPagerAdapter = new CollectionPagerAdapter(getSupportFragmentManager(), OfflineStoreInventory.getInstance().getPriceRelevantInventory());
+        CollectionPagerAdapter collectionPagerAdapter = new CollectionPagerAdapter(getSupportFragmentManager(), relevantInventory);
         ViewPager fragmentPager = (ViewPager)findViewById(R.id.detail_fragment_container);
         int currentIndex = 0;
 
         //Get item so we can keep track of what index we're on. Had to use a for loop because fragment holds a copy of Product object instead of the Object itself.
-        for(Product product:mPriceRelevantInventory) {
+        for(Product product:relevantInventory) {
             if (getIntent().getStringExtra(MainActivity.ITEM_NAME_KEY).equals(product.getName())) {
-                currentIndex = mPriceRelevantInventory.indexOf(product);
+                currentIndex = relevantInventory.indexOf(product);
                 break;
             }
         }
@@ -90,8 +90,6 @@ public class OfflineDetailActivity extends AppCompatActivity implements OfflineD
                 Intent intent = new Intent(this, ShoppingCartActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.settings:
-
             default:
                 Log.d("Err: ", "You clicked on something that doesn't exist.");
                 return false;

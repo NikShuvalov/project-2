@@ -33,10 +33,6 @@ public class OfflineSQLOpenHelper extends SQLiteOpenHelper {
             COL_IMG_REF + " INTEGER)";
 
 
-
-    //ToDo: Use a sharedpreferences to keep track of user's max price range. And use that number to filter products.
-
-
     private static OfflineSQLOpenHelper myInstance;
 
 
@@ -116,6 +112,7 @@ public class OfflineSQLOpenHelper extends SQLiteOpenHelper {
             db.close();
             return retrievedProduct;//Based on item name create a product with those attributes.
         }
+        c.close();
         return null; //This shouldn't happen.
     }
 

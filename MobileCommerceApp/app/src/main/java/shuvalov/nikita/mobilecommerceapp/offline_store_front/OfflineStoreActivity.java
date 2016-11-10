@@ -54,45 +54,24 @@ public class OfflineStoreActivity extends AppCompatActivity {
 
         debugProductList(); //If database is empty, populate it with data.
         mProducts = OfflineSQLOpenHelper.getMyInstance(this).getInventoryAsList();//Defines whole inventory.
+        OfflineStoreInventory.getInstance().setRelevantInventory(mProducts);
 
         //If the singleton is empty, let's add products to it.
         OfflineStoreInventory offlineStoreInventory = OfflineStoreInventory.getInstance();
         if (offlineStoreInventory.inventoryIsEmpty()){
             offlineStoreInventory.replaceInventory(mProducts);
         }
-        displayPriceRelevantProducts();
-    }
 
-
-    public void displayPriceRelevantProducts(){
-        SharedPreferences sharedPreferences = getSharedPreferences("mySharedPreferences", MODE_PRIVATE);
-        mMaxPriceRange = sharedPreferences.getFloat("max_price_range", Float.MAX_VALUE);
-
-        ArrayList<Product> priceRelevantProducts = OfflineSQLOpenHelper.getMyInstance(this).getProductsCheaperThan(mMaxPriceRange);//Defines relevant inventory.
-
-        if(priceRelevantProducts.isEmpty()){
-            priceRelevantProducts = mProducts;
-            Toast.makeText(this, "No products match criteria", Toast.LENGTH_SHORT).show();
-        }else{
-            OfflineStoreInventory.getInstance().setPriceRelevantInventory(priceRelevantProducts);
-        }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.offline_store_recycler);
 
         //Using the displaywidth I determine how many columns will display, my screensize is 1440
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, mGridColumns);
-        mAdapter = new OfflineAdapter(priceRelevantProducts);
+        mAdapter = new OfflineAdapter(mProducts);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    @Override
-    protected void onResume() {
-        SharedPreferences sharedPreferences = getSharedPreferences("mySharedPreferences", MODE_PRIVATE);
-        mMaxPriceRange = sharedPreferences.getFloat("max_price_range",Float.MAX_VALUE);
-        displayPriceRelevantProducts();
-        super.onResume();
-    }
 
     public void debugProductList(){
         OfflineSQLOpenHelper dbHelper = OfflineSQLOpenHelper.getMyInstance(this);
@@ -130,6 +109,7 @@ public class OfflineStoreActivity extends AppCompatActivity {
         if(Intent.ACTION_SEARCH.equals(intent.getAction())){
             String query = intent.getStringExtra(SearchManager.QUERY);
             ArrayList<Product> relevantProducts = OfflineSQLOpenHelper.getMyInstance(this).searchProducts(query);
+            OfflineStoreInventory.getInstance().setRelevantInventory(relevantProducts);
             if (relevantProducts.isEmpty()){
                 Toast.makeText(this, "No results matched search", Toast.LENGTH_LONG).show();
             }else{
@@ -146,17 +126,9 @@ public class OfflineStoreActivity extends AppCompatActivity {
                 Intent cartIntent = new Intent(this, ShoppingCartActivity.class);
                 startActivity(cartIntent);
                 return true;
-            case R.id.remove_filters://This to refreshes data after search, but price max remains
+            case R.id.remove_filters://This to refreshes data after search
                 mAdapter.replaceData(mProducts);
-                return true;
-            case R.id.settings:
-                Intent profileIntent = new Intent(this, ProfileActivity.class);
-                startActivity(profileIntent);
-                return true;
-            case R.id.clear_settings:
-                getSharedPreferences("mySharedPreferences",MODE_PRIVATE).edit().clear().apply();
-                OfflineStoreInventory.getInstance().onResetPriceCeiling();
-                displayPriceRelevantProducts();
+                OfflineStoreInventory.getInstance().setRelevantInventory(mProducts);
                 return true;
             default:
                 Log.d("Err: ", "You clicked on something that doesn't exist.");

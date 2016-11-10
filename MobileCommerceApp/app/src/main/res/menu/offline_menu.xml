@@ -9,7 +9,7 @@
         app:actionViewClass="android.support.v7.widget.SearchView"/>
     <item
         android:id="@+id/remove_filters"
-        android:title="Show All"
+        android:title="Reset"
         android:icon="@drawable/ic_refresh"
         app:showAsAction="ifRoom"/>
     <item
@@ -18,15 +18,15 @@
         android:icon="@drawable/ic_shopping_cart"
         app:showAsAction="always"/>
 
-    <item
-        android:id="@+id/settings"
-        android:title="Settings"
-        app:showAsAction="never"/>
+    <!--<item-->
+        <!--android:id="@+id/settings"-->
+        <!--android:title="Settings"-->
+        <!--app:showAsAction="never"/>-->
 
-    <item
-        android:id="@+id/clear_settings"
-        android:title="Clear Settings"
-        app:showAsAction="never"/>
+    <!--<item-->
+        <!--android:id="@+id/clear_settings"-->
+        <!--android:title="Clear Settings"-->
+        <!--app:showAsAction="never"/>-->
 
 
 </menu>
