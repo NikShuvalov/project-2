@@ -1,0 +1,66 @@
+Feature: Display products.
+
+Condition: 
+1. Enough information is displayed to identify each object.
+2. All of the information displayed is relevant only to the object that it represents.
+3. Objects are displayed in an organized matter.
+
+ — As a User, I can access the storefront.
+— As a User, I can identify objects on the storefront by name and image.
+
+Feature: Display product details
+
+Condition:
+1. A new activity is opened to display object’s details.
+2. The views show relevant information to what the user clicked.
+3. Information matches object’s details.
+
+- As a User, I can select an item to get more details.
+
+Feature: Swipe to browse items
+Conditions:
+1. When user is in detail view, they can swipe to move to next/previous item in list.
+2. Items in list must be relevant to search parameters.
+3. User can’t swipe out of range of the list.
+
+— As a User, I can swipe to navigate to other item details.
+— As a User, I can browse items that are relevant to my search.
+
+Feature: Add to shopping cart
+Conditions:
+1. Add item to shopping cart singleton.
+2. Notify user that item was added to shopping cart.
+
+—As a User, I can add an item to my shopping cart.
+
+Feature: Manipulate shopping cart
+Conditions:
+1. Shopping cart page can be reached.
+2. Once at shopping cart page items in shopping cart are displayed in an organized manner.
+3. Items can be removed when swiped or long-pressed.
+4. Display and actual shopping cart content are updated.
+5. Notify user item is removed.
+
+- As a user, I can remove items from my shopping cart.
+- As  a user, I can view my shopping cart.
+- As a user, I can resume shopping without my cart emptying after going back to storefront.
+
+Feature: Checkout
+Conditions:
+1. The total price and each charge is clearly displayed and represented.
+2. Ability to pay for and checkout items.
+3. Empty and update shopping cart after checking out.
+4. Notify user that the transaction went through correctly.
+
+—As a user, I can see how much my total will be.
+- As a user, I can pay for/checkout my items.
+
+Feature: Searchability
+Condition:
+1. Clear interface to allow user to input search parameters.
+2. Take in search parameters to retrieve relevant information.
+3. Refresh storefront display to show user only items that are relevant to the search parameters.
+4. Have some method of reverting the storefront display to show all objects again.
+
+- As a user, I can narrow my search by name or description text.
+- As  a user, I can reset my search to view all other items. 
