@@ -6,7 +6,8 @@
     android:id="@+id/activity_offline_store"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="shuvalov.nikita.mobilecommerceapp.offline_store_front.OfflineStoreActivity">
+    tools:context="shuvalov.nikita.mobilecommerceapp.offline_store_front.OfflineStoreActivity"
+    android:background="#e5fffc">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tool_bar"

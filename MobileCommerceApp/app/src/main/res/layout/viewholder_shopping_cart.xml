@@ -19,8 +19,7 @@
     <ImageView
         android:id="@+id/img_thumbnail"
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@android:color/holo_blue_bright"/>
+        android:layout_height="50dp"/>
 
     <TextView
         android:id="@+id/item_name"

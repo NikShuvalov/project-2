@@ -39,13 +39,29 @@ public class ShoppingCartActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(shoppingCartRecyclerAdapter);
 
+        //Get total cost in order to set cost to button.
+        double totalCost= 0;
+        for (Product product: inCart){
+            totalCost+=Product.applyTaxes(product.getPrice());
+        }
+        //Removes checkout Button if user doesn't have items in shopping cart.
+        if (totalCost == 0){
+            checkout.setVisibility(View.INVISIBLE);
+        }else {
+            checkout.setText("Pay $" + String.valueOf(totalCost));
+        }
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-              ShoppingCartContent.getInstance().onCheckout();
-                shoppingCartRecyclerAdapter.notifyDataSetChanged();
-                Toast.makeText(ShoppingCartActivity.this, "Checkout complete", Toast.LENGTH_SHORT).show();
+                if (inCart.isEmpty()){ //If user has already completed purchase and remains on screen, future present attempts will present toast.
+                    Toast.makeText(ShoppingCartActivity.this, "Order has already been completed", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    ShoppingCartContent.getInstance().onCheckout();
+                    shoppingCartRecyclerAdapter.notifyDataSetChanged();
+                    Toast.makeText(ShoppingCartActivity.this, "Checkout complete", Toast.LENGTH_SHORT).show();
+                    checkout.setText("Purchase complete");
+                }
             }
         });
 

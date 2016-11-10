@@ -37,11 +37,9 @@ public class ShoppingCartRecyclerAdapterSC extends RecyclerView.Adapter<Shopping
             holder.mNameView.setText(R.string.empty_cart);
             holder.mCostView.setText("");
         }else{
-            //ToDo: add swipe listener to allow user to swipe-remove items.
-            //ToDo: Add an "x" to allow user to delete that way as well.
             Product product = mShoppingCartContent.get(holder.getAdapterPosition());
             holder.mNameView.setText(product.getName());
-//            holder.mImageView.setImageResource(product.getImageRef());
+            holder.mImageView.setImageResource(product.getImageRef());
             holder.mCostView.setText(String.valueOf(product.getPrice()));
             holder.mLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

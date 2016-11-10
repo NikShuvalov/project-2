@@ -1,23 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="shuvalov.nikita.mobilecommerceapp.offline_store_front.OfflineDetailFragment"
-                android:background="#e5fffc">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="shuvalov.nikita.mobilecommerceapp.offline_store_front.OfflineDetailFragment">
 
 
     <ImageView
         android:id="@+id/item_image"
         android:layout_marginBottom="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
         android:scaleType="fitXY"/>
+    <RelativeLayout
+        android:layout_margin="5dp"
+        android:id="@+id/image_white_space"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/item_image"
+        android:background="#e5fffc">
 
     <Button
         android:id="@+id/buy_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item_image"
         android:layout_centerHorizontal="true"
         android:text="PRICE OF ITEM GOES HERE"
         android:background="#048901"
@@ -30,9 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/buy_button"
         android:layout_marginTop="15dp"
-        android:text="THIS IS THE NAME OF THE ITEM"
-        android:textSize="25sp"
         android:layout_centerHorizontal="true"
+        android:text="Item Name"
+        android:textSize="25sp"
         android:textColor="#333"
         />
 
@@ -48,6 +55,7 @@
             android:layout_height="wrap_content"
             android:text="INFO GOES IN HERE"/>
     </ScrollView>
+    </RelativeLayout>
 
 
 
