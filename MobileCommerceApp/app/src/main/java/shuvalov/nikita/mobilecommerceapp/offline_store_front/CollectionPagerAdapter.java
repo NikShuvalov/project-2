@@ -23,8 +23,7 @@ public class CollectionPagerAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = OfflineDetailFragment.newInstance(mFilteredInventory.get(position).getName());
-        return fragment;
+        return OfflineDetailFragment.newInstance(mFilteredInventory.get(position).getName());
     }
 
     @Override

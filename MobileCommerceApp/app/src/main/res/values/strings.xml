@@ -6,4 +6,8 @@
     <string name="checkout_button_text">Checkout</string>
     <string name="keep_shopping">Continue shopping</string>
     <string name="search_hint">Enter search here</string>
+
+    <string name = "unused_message">Coming Soon!</string>
+    <string name= "user_confirmation_message">Remove item from cart?</string>
+    <string name = "checkout_completed">Checkout complete</string>
 </resources>

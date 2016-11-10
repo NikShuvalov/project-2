@@ -24,7 +24,7 @@ import shuvalov.nikita.mobilecommerceapp.R;
 
 public class OfflineAdapter extends RecyclerView.Adapter<OfflineViewHolder> {
 
-    ArrayList<Product> mInventory;
+    private ArrayList<Product> mInventory;
 
 
     public OfflineAdapter(ArrayList<Product> inventory) {

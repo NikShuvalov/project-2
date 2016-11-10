@@ -4,9 +4,6 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +21,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import shuvalov.nikita.mobilecommerceapp.Product;
-import shuvalov.nikita.mobilecommerceapp.ProfileActivity;
 import shuvalov.nikita.mobilecommerceapp.R;
 import shuvalov.nikita.mobilecommerceapp.setup.DBAssetHelper;
 import shuvalov.nikita.mobilecommerceapp.shopping_cart_folder.ShoppingCartActivity;
@@ -33,7 +29,6 @@ public class OfflineStoreActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     ArrayList<Product> mProducts;
     OfflineAdapter mAdapter;
-    Float mMaxPriceRange;
     int mGridColumns;
 
     @Override
@@ -84,7 +79,7 @@ public class OfflineStoreActivity extends AppCompatActivity {
         for(Product product: products){
             int imageRef;
             switch(product.getName()){
-                case "Ugly X-Mas Sweater\t"://Hard-coded // FIXME: Database keeps populating this product with a tab in it even after I change it.
+                case "Ugly X-Mas Sweater":
                     imageRef = R.drawable.ugly_xmas_sweater;
                     break;
                 case "Holy Grail":

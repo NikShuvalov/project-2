@@ -20,7 +20,7 @@ import shuvalov.nikita.mobilecommerceapp.R;
  */
 
 public class ShoppingCartRecyclerAdapterSC extends RecyclerView.Adapter<ShoppingCartViewHolder> implements SCItemTouchHelperAdapter {
-    ArrayList<Product> mShoppingCartContent;
+    private ArrayList<Product> mShoppingCartContent;
 
     public ShoppingCartRecyclerAdapterSC(ArrayList<Product> shoppingCartContent){mShoppingCartContent = shoppingCartContent;}
 
@@ -32,7 +32,7 @@ public class ShoppingCartRecyclerAdapterSC extends RecyclerView.Adapter<Shopping
 
     @Override
     public void onBindViewHolder(final ShoppingCartViewHolder holder, int position) {
-        if(mShoppingCartContent.isEmpty()){//If cart is empty, display this single viewholder.
+        if(mShoppingCartContent.isEmpty()){//If cart is empty, display this single viewholder. FixMe: When this viewholder is deleted, crash occurs upon leaving shopping cart.
             holder.mImageView.setImageResource(R.drawable.ic_empty_cart);
             holder.mNameView.setText(R.string.empty_cart);
             holder.mCostView.setText("");
@@ -45,7 +45,7 @@ public class ShoppingCartRecyclerAdapterSC extends RecyclerView.Adapter<Shopping
                 @Override
                 public boolean onLongClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setMessage("Remove item from shopping cart?")
+                    builder.setMessage(R.string.user_confirmation_message)
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {

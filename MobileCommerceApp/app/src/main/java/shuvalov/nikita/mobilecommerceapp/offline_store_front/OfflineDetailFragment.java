@@ -20,7 +20,6 @@ import shuvalov.nikita.mobilecommerceapp.R;
 
 public class OfflineDetailFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
-    private Product selectedProduct;
 
     private String mItemName;
 
@@ -62,23 +61,22 @@ public class OfflineDetailFragment extends Fragment {
         Button buyButton = (Button)view.findViewById(R.id.buy_button);
 
         //Using the itemName key that was passed, create/get that object based on info from DB.
-        selectedProduct = OfflineSQLOpenHelper.getMyInstance(view.getContext()).getProductByName(mItemName);
+        Product selectedProduct = OfflineSQLOpenHelper.getMyInstance(view.getContext()).getProductByName(mItemName);
         nameView.setText(selectedProduct.getName());
         detailsView.setText(selectedProduct.getDescription());
         itemImage.setImageResource(selectedProduct.getImageRef());
-        buyButton.setText("$"+selectedProduct.getPrice());
-        buyButton.setBackgroundColor(getResources().getColor(R.color.purchase_button));
+        String priceText = "$"+selectedProduct.getPrice();
+        buyButton.setText(priceText);
+        buyButton.setBackgroundColor(getResources().getColor(R.color.purchase_button)); //FixMe: Figure out undeprecated method.
 
 
         buyButton.setOnClickListener(new View.OnClickListener() { //When button is clicked, should add item to shopping cart.
             @Override
             public void onClick(View view) {
-                //For now going to send user to shopping cart activity instead of adding to shopping cart.
-                //ToDo:Change functionality after debugging.
+                //Ultimately leads to item being added to user's shopping cart.
                 onButtonPressed();
             }
         });
-        //ToDo: Have image reference set to itemImageView
     }
 
     public void onButtonPressed() {

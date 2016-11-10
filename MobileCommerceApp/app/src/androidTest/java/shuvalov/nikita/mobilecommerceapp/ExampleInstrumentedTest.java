@@ -23,4 +23,5 @@ public class ExampleInstrumentedTest {
 
         assertEquals("shuvalov.nikita.mobilecommerceapp", appContext.getPackageName());
     }
+
 }

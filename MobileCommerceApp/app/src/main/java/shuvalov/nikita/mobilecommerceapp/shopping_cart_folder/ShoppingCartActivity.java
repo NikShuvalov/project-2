@@ -56,7 +56,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
             double taxes = ((int)((totalCost-subTotal)*100))/100.00;//Truncates extra decimals.
             mPriceSummary.setText(String.format("SubTotal: $%s\nTaxes:$%s\nS&H:$7.99",String.valueOf(subTotal),String.valueOf(taxes)));
             totalCost+=7.99;
-            checkout.setText("Pay $" + String.valueOf(totalCost));
+            String checkoutText = "Pay $"+String.valueOf(totalCost);
+            checkout.setText(checkoutText); //FixMe: Sometimes extra decimals appear.
         }
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,8 +68,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
                 else {
                     ShoppingCartContent.getInstance().onCheckout();
                     shoppingCartRecyclerAdapter.notifyDataSetChanged();
-                    Toast.makeText(ShoppingCartActivity.this, "Checkout complete", Toast.LENGTH_SHORT).show();
-                    checkout.setText("Purchase complete");
+                    Toast.makeText(ShoppingCartActivity.this, R.string.checkout_completed, Toast.LENGTH_SHORT).show();
+                    checkout.setText(R.string.checkout_completed);
                     mPriceSummary.setText("");
                 }
             }

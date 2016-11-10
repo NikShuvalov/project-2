@@ -33,8 +33,6 @@
         </activity>
         <activity android:name=".shopping_cart_folder.ShoppingCartActivity">
         </activity>
-        <activity android:name=".ProfileActivity">
-        </activity>
     </application>
 
 </manifest>

@@ -15,9 +15,7 @@ import shuvalov.nikita.mobilecommerceapp.offline_store_front.OfflineStoreActivit
 
 
 /*
-Offline activity will include a FAB, ehhhh don't see much of a point of a FAB anymore.
 ToDo: Use strings.xml and colors.xml.
-ToDo: Add a Total for the shopping cart activity.
 
 Stretch Goal ToDo-es
 ToDo: Randomly generate items in the store based on a large database.
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 //This will ultimately run the download task
-                Toast.makeText(MainActivity.this, "Coming soon", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, R.string.unused_message, Toast.LENGTH_LONG).show();
             }
         });
 
