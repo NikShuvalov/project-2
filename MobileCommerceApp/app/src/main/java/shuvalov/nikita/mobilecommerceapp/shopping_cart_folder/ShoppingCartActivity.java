@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import shuvalov.nikita.mobilecommerceapp.R;
 public class ShoppingCartActivity extends AppCompatActivity {
 
     Button checkout, keepShopping;
+    TextView mPriceSummary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         checkout = (Button)findViewById(R.id.checkout_button);
         keepShopping=(Button)findViewById(R.id.back_to_store_button);
+        mPriceSummary =(TextView)findViewById(R.id.price_summary);
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.shopping_cart_recycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -40,14 +43,19 @@ public class ShoppingCartActivity extends AppCompatActivity {
         recyclerView.setAdapter(shoppingCartRecyclerAdapter);
 
         //Get total cost in order to set cost to button.
+        double subTotal = 0;
         double totalCost= 0;
         for (Product product: inCart){
+            subTotal +=product.getPrice();
             totalCost+=Product.applyTaxes(product.getPrice());
         }
         //Removes checkout Button if user doesn't have items in shopping cart.
         if (totalCost == 0){
             checkout.setVisibility(View.INVISIBLE);
         }else {
+            double taxes = ((int)((totalCost-subTotal)*100))/100.00;//Truncates extra decimals.
+            mPriceSummary.setText(String.format("SubTotal: $%s\nTaxes:$%s\nS&H:$7.99",String.valueOf(subTotal),String.valueOf(taxes)));
+            totalCost+=7.99;
             checkout.setText("Pay $" + String.valueOf(totalCost));
         }
         checkout.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +69,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
                     shoppingCartRecyclerAdapter.notifyDataSetChanged();
                     Toast.makeText(ShoppingCartActivity.this, "Checkout complete", Toast.LENGTH_SHORT).show();
                     checkout.setText("Purchase complete");
+                    mPriceSummary.setText("");
                 }
             }
         });

@@ -57,7 +57,6 @@ public class ShoppingCartRecyclerAdapterSC extends RecyclerView.Adapter<Shopping
                         public void onClick(DialogInterface dialogInterface, int i) {
                         }
                     }).create().show();
-
                     return false;
                 }
             });
