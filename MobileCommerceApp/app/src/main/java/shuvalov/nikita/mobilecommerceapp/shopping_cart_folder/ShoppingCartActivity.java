@@ -1,5 +1,6 @@
 package shuvalov.nikita.mobilecommerceapp.shopping_cart_folder;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,13 +20,14 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     Button checkout, keepShopping;
     TextView mPriceSummary;
+    ArrayList<Product> inCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
 
-        final ArrayList<Product> inCart = ShoppingCartContent.getInstance().getShoppingCartContents();
+        inCart = ShoppingCartContent.getInstance().getShoppingCartContents();
 
         checkout = (Button)findViewById(R.id.checkout_button);
         keepShopping=(Button)findViewById(R.id.back_to_store_button);
@@ -42,23 +44,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(shoppingCartRecyclerAdapter);
 
-        //Get total cost in order to set cost to button.
-        double subTotal = 0;
-        double totalCost= 0;
-        for (Product product: inCart){
-            subTotal +=product.getPrice();
-            totalCost+=Product.applyTaxes(product.getPrice());
-        }
         //Removes checkout Button if user doesn't have items in shopping cart.
-        if (totalCost == 0){
-            checkout.setVisibility(View.INVISIBLE);
-        }else {
-            double taxes = ((int)((totalCost-subTotal)*100))/100.00;//Truncates extra decimals.
-            mPriceSummary.setText(String.format("SubTotal: $%s\nTaxes:$%s\nS&H:$7.99",String.valueOf(subTotal),String.valueOf(taxes)));
-            totalCost+=7.99;
-            String checkoutText = "Pay $"+String.valueOf(totalCost);
-            checkout.setText(checkoutText); //FixMe: Sometimes extra decimals appear.
-        }
+        updatePriceView();
+
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,5 +72,25 @@ public class ShoppingCartActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void updatePriceView(){
+        //Get total cost in order to set cost to button.
+        double subTotal = 0;
+        double totalCost= 0;
+        for (Product product: inCart){
+            subTotal +=product.getPrice();
+            totalCost+=Product.applyTaxes(product.getPrice());
+        }
+        //Removes checkout Button if user doesn't have items in shopping cart.
+        if (totalCost == 0){
+            checkout.setVisibility(View.INVISIBLE);
+        }else {
+            double taxes = ((int)((totalCost-subTotal)*100))/100.00;//Truncates extra decimals.
+            mPriceSummary.setText(String.format("SubTotal: $%s\nTaxes:$%s\nS&H:$7.99",String.valueOf(subTotal),String.valueOf(taxes)));
+            totalCost+=7.99;
+            String checkoutText = "Pay $"+String.valueOf(totalCost);
+            checkout.setText(checkoutText); //FixMe: Sometimes extra decimals appear.
+        }
     }
 }

@@ -15,7 +15,6 @@ import shuvalov.nikita.mobilecommerceapp.offline_store_front.OfflineStoreActivit
 
 
 /*
-ToDo: Use strings.xml and colors.xml.
 
 Stretch Goal ToDo-es
 ToDo: Randomly generate items in the store based on a large database.

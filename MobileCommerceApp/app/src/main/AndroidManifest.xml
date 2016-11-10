@@ -17,7 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".amazon_folder.AmazonDealsActivity"/>
         <activity
             android:name=".offline_store_front.OfflineStoreActivity"
             android:launchMode="singleTop">

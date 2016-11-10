@@ -94,6 +94,18 @@ public class OfflineStoreActivity extends AppCompatActivity {
                 case "Unconvincing Toupee":
                     imageRef = R.drawable.unconvincing_toupee;
                     break;
+                case "Denim Chicken":
+                    imageRef = R.drawable.denim_chicken;
+                    break;
+                case "Egg":
+                    imageRef = R.drawable.egg;
+                    break;
+                case "Rum Ham":
+                    imageRef = R.drawable.rumham;
+                    break;
+                case "Snake Oil":
+                    imageRef = R.drawable.snake_oil;
+                    break;
                 default:
                     imageRef = 0;
                     break;
