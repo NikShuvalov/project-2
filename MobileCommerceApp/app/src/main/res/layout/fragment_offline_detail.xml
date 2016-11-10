@@ -9,8 +9,8 @@
         android:id="@+id/item_image"
         android:layout_marginBottom="15dp"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@android:color/holo_green_light"/>
+        android:layout_height="200dp"
+        android:scaleType="fitXY"/>
 
     <Button
         android:id="@+id/buy_button"

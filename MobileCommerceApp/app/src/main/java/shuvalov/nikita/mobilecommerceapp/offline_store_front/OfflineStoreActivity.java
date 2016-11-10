@@ -56,7 +56,7 @@ public class OfflineStoreActivity extends AppCompatActivity {
         mGridColumns = display_width/720;
 
 
-//        debugProductList(); //If database is empty, populate it with data.
+        updateDatabaseImageReferences();
         mProducts = OfflineSQLOpenHelper.getMyInstance(this).getInventoryAsList();//Defines whole inventory.
         OfflineStoreInventory.getInstance().setRelevantInventory(mProducts);
 
@@ -77,18 +77,46 @@ public class OfflineStoreActivity extends AppCompatActivity {
     }
 
 
-    public void debugProductList(){
+    public void updateDatabaseImageReferences(){
         OfflineSQLOpenHelper dbHelper = OfflineSQLOpenHelper.getMyInstance(this);
-        if(dbHelper.isEmpty()){
-            dbHelper.addProductToInventory(new Product("Master Sword","Hero of times' sword said to be the sword that defeated Ganondorf", 0, 19.99));
-            dbHelper.addProductToInventory(new Product("Phoenix Down", "Revives people", 1, 2.99));
-            dbHelper.addProductToInventory(new Product("Ugly X-mas Sweater", "Perfect for staving off the frost and potential mates.", 2, 49.99));
-            dbHelper.addProductToInventory(new Product("Holy Grail", "Holds 22 fl.oz of liquid", 3, 14.99));
-            dbHelper.addProductToInventory(new Product("Bottled Lightning", "*Do not use while in Bathtub*", 4, 10.99));
-            dbHelper.addProductToInventory(new Product("Monkey Paw", "Grants wishes and great for scratching hard to reach areas", 5, 87.99));
-            dbHelper.addProductToInventory(new Product("Unconvincing Toupee","Thick is the head that wears this crown.", 5, 9.99));
-            dbHelper.addProductToInventory(new Product("Primary color pantsuit", "A stylish pant suit designed by Marc Ecko. Popular amongst Korean Dictators, Yu-Gi-Oh villians, and female presidential candidates.",6,129.99));
+        ArrayList<Product> products = dbHelper.getInventoryAsList();
+
+        for(Product product: products){
+            int imageRef;
+            switch(product.getName()){
+                case "Ugly X-Mas Sweater\t"://Hard-coded // FIXME: Database keeps populating this product with a tab in it even after I change it.
+                    imageRef = R.drawable.ugly_xmas_sweater;
+                    break;
+                case "Holy Grail":
+                    imageRef = R.drawable.holy_grail;
+                    break;
+                case "Bottled Lightning":
+                    imageRef = R.drawable.bottled_lightning;
+                    break;
+                case "Monkey Paw":
+                    imageRef = R.drawable.monkey_paw;
+                    break;
+                case "Unconvincing Toupee":
+                    imageRef = R.drawable.unconvincing_toupee;
+                    break;
+                default:
+                    imageRef = 0;
+                    break;
+            }
+            dbHelper.updateImageReference(product.getName(),imageRef);
         }
+//        if(dbHelper.isEmpty()){
+//
+//
+//            dbHelper.addProductToInventory(new Product("Master Sword","Hero of times' sword said to be the sword that defeated Ganondorf", 0, 19.99));
+//            dbHelper.addProductToInventory(new Product("Phoenix Down", "Revives people", 1, 2.99));
+//            dbHelper.addProductToInventory(new Product("Ugly X-mas Sweater", "Perfect for staving off the frost and potential mates.", 2, 49.99));
+//            dbHelper.addProductToInventory(new Product("Holy Grail", "Holds 22 fl.oz of liquid", 3, 14.99));
+//            dbHelper.addProductToInventory(new Product("Bottled Lightning", "*Do not use while in Bathtub*", 4, 10.99));
+//            dbHelper.addProductToInventory(new Product("Monkey Paw", "Grants wishes and great for scratching hard to reach areas", 5, 87.99));
+//            dbHelper.addProductToInventory(new Product("Unconvincing Toupee","Thick is the head that wears this crown.", 5, 9.99));
+//            dbHelper.addProductToInventory(new Product("Primary color pantsuit", "A stylish pant suit designed by Marc Ecko. Popular amongst Korean Dictators, Yu-Gi-Oh villians, and female presidential candidates.",6,129.99));
+//        }
     }
 
     @Override
@@ -119,7 +147,6 @@ public class OfflineStoreActivity extends AppCompatActivity {
             }else{
                 mAdapter.replaceData(relevantProducts);
             }
-
         }
     }
 

@@ -41,8 +41,8 @@ public class OfflineAdapter extends RecyclerView.Adapter<OfflineViewHolder> {
     public void onBindViewHolder(final OfflineViewHolder holder, int position) {
 
         holder.mNameView.setText(mInventory.get(position).getName());
-        holder.mPriceView.setText(String.valueOf(mInventory.get(position).getPrice()));
-        holder.mDescView.setText(mInventory.get(position).getDescription());//Possibly get rid of this to make the cardViews neater.
+        holder.mPriceView.setText("$"+String.valueOf(mInventory.get(position).getPrice()));
+        holder.mImageView.setImageResource(mInventory.get(position).getImageRef());
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,7 +66,7 @@ public class OfflineAdapter extends RecyclerView.Adapter<OfflineViewHolder> {
 }
 
 class OfflineViewHolder extends RecyclerView.ViewHolder{
-    TextView mNameView, mDescView, mPriceView;
+    TextView mNameView, mPriceView;
     ImageView mImageView;
     CardView mCardView;
 
@@ -76,7 +76,6 @@ class OfflineViewHolder extends RecyclerView.ViewHolder{
 
         mCardView = (CardView) itemView.findViewById(R.id.cardview_container);
         mNameView = (TextView) itemView.findViewById(R.id.item_name);
-        mDescView = (TextView) itemView.findViewById(R.id.description_view);
         mPriceView = (TextView) itemView.findViewById(R.id.price_view);
         mImageView = (ImageView) itemView.findViewById(R.id.item_image);
     }

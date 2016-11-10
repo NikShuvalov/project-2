@@ -65,6 +65,7 @@ public class OfflineDetailFragment extends Fragment {
         selectedProduct = OfflineSQLOpenHelper.getMyInstance(view.getContext()).getProductByName(mItemName);
         nameView.setText(selectedProduct.getName());
         detailsView.setText(selectedProduct.getDescription());
+        itemImage.setImageResource(selectedProduct.getImageRef());
         buyButton.setText("$"+selectedProduct.getPrice());
         buyButton.setBackgroundColor(getResources().getColor(R.color.purchase_button));
 
