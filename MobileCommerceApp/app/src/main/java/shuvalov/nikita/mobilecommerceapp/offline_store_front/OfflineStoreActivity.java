@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import shuvalov.nikita.mobilecommerceapp.Product;
 import shuvalov.nikita.mobilecommerceapp.ProfileActivity;
 import shuvalov.nikita.mobilecommerceapp.R;
+import shuvalov.nikita.mobilecommerceapp.setup.DBAssetHelper;
 import shuvalov.nikita.mobilecommerceapp.shopping_cart_folder.ShoppingCartActivity;
 
 public class OfflineStoreActivity extends AppCompatActivity {
@@ -43,6 +44,9 @@ public class OfflineStoreActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
+        DBAssetHelper dbSetup = new DBAssetHelper(OfflineStoreActivity.this);
+        dbSetup.getReadableDatabase();
+
 
         //This block of code figures out the size of the screen, particularly the width.
         Point size= new Point();
@@ -52,7 +56,7 @@ public class OfflineStoreActivity extends AppCompatActivity {
         mGridColumns = display_width/720;
 
 
-        debugProductList(); //If database is empty, populate it with data.
+//        debugProductList(); //If database is empty, populate it with data.
         mProducts = OfflineSQLOpenHelper.getMyInstance(this).getInventoryAsList();//Defines whole inventory.
         OfflineStoreInventory.getInstance().setRelevantInventory(mProducts);
 

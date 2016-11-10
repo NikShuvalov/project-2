@@ -16,7 +16,7 @@ import shuvalov.nikita.mobilecommerceapp.Product;
 
 public class OfflineSQLOpenHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION=1;
-    public static final String DATABASE_NAME = "ALL_GOOD_THINGS.DB";
+    public static final String DATABASE_NAME = "SOFA_CUSHION_TREASURES";
     public static final String OFFLINE_TABLE_NAME="OFFLINE_INVENTORY";
 
     public static final String COL_ID= "ID";
@@ -31,7 +31,6 @@ public class OfflineSQLOpenHelper extends SQLiteOpenHelper {
             COL_DESCRIPTION + " VARCHAR, "+
             COL_PRICE+ " REAL, "+
             COL_IMG_REF + " INTEGER)";
-
 
     private static OfflineSQLOpenHelper myInstance;
 
@@ -165,6 +164,17 @@ public class OfflineSQLOpenHelper extends SQLiteOpenHelper {
         }
         c.close();
         return priceAppropriateProducts;
+    }
+
+    public void updateImageReference(String name, int imageRef){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_IMG_REF, imageRef);
+        db.update(OFFLINE_TABLE_NAME,
+                contentValues,
+                COL_NAME+" = ?",
+                new String[]{name});
+        db.close();
     }
 
 }
