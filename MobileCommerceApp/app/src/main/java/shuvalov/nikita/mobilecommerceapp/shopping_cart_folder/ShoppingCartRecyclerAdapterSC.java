@@ -74,8 +74,10 @@ public class ShoppingCartRecyclerAdapterSC extends RecyclerView.Adapter<Shopping
 
     @Override
     public void onItemDismiss(int position) {//On Swipe remove item
-        ShoppingCartContent.getInstance().removeItemByIndex(position);
-        notifyItemRemoved(position);
+        if (mShoppingCartContent.size()>0){
+            ShoppingCartContent.getInstance().removeItemByIndex(position);
+            notifyItemRemoved(position);
+        }
     }
 }
 
