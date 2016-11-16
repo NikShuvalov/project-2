@@ -32,7 +32,7 @@ public class ShoppingCartRecyclerAdapterSC extends RecyclerView.Adapter<Shopping
 
     @Override
     public void onBindViewHolder(final ShoppingCartViewHolder holder, int position) {
-        if(mShoppingCartContent.isEmpty()){//If cart is empty, display this single viewholder. FixMe: When this viewholder is deleted, crash occurs upon leaving shopping cart.
+        if(mShoppingCartContent.isEmpty()){//If cart is empty, display this single viewholder.
             holder.mImageView.setImageResource(R.drawable.ic_empty_cart);
             holder.mNameView.setText(R.string.empty_cart);
             holder.mCostView.setText("");
