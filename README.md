@@ -13,7 +13,6 @@ If you wish to checkout your wares, simply click on the button that displays the
 Thank you for shopping!
 
 Known bugs:
--Removing the cardview that notifies you your shopping cart is empty causes a crash upon leaving the shopping cart activity.
 -Price doesn't update on item removal.
 -At times, extra decimals are displayed in the cost.
 
