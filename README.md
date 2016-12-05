@@ -10,10 +10,13 @@ If at any point you wish to check your shopping cart simply click the shopping c
 Once in the shopping cart activity you can see what items are in your shopping cart, the subtotal, taxes, S&H charges and total price are displayed as well. 
 If you wish to remove any objects simply either swipe them away or long press them. Unfortunately at the moment the cost text does not refresh upon removing items. Click on continue shopping and go back to your shopping cart.
 If you wish to checkout your wares, simply click on the button that displays the total price.
+
 Thank you for shopping!
 
 Known bugs:
+
 -Price doesn't update on item removal.
+
 -At times, extra decimals are displayed in the cost.
 
 
